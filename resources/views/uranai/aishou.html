@@ -1,0 +1,52 @@
+{% extends "layout/base.html" %}
+{% block styles %}
+<link rel="stylesheet" href="/resources/css/uranai.css">
+{% endblock %}
+{% block app %}
+{% embed "components/content-wrapper.html" %}
+{% block content %}
+<div class="col">
+    {% set categories = {
+            '2': '週間',
+            '1': '総合',
+        }
+    %}
+    {% embed "components/uranai-pulldown.html" with {'categories': categories} %}{% endembed %}
+    <hr class="border border-warning">
+    <header>
+        <h2><i class="bi bi-signpost-split"></i> 相性（ラポール） - {{ title }}</h2>
+        <p>{{ desc }}</p>
+    </header>
+    {% embed "components/uranai-form-wrapper.html" %}
+    {% block uranai %}
+    <form method="POST" action="{{ thispage }}">
+        <input type="hidden" name="p" value="{{ p }}">
+        <select name="person">
+            {% for partner in partners %}
+            <option value="{{ partner.seq }}" {{ target == partner.seq ? 'selected' : ''}}>
+                {{ partner.username }}</option>
+            {% endfor %}
+        </select>
+        さんとの運勢を <div id="SubmitButton" class="SubmitButton" style="display: inline-block; _display: inline;"><input
+                type="submit" value="占う" class="btn btn-dark"></div>
+    </form>
+    {% endblock %}
+    {% endembed %}
+    <p class="fw-bold fs-5">
+        {% if p == 2 and text %}
+        {{ range[0] }} から {{ range[1] }}
+        {% elseif p == 1 %}
+        生まれ持った相性になります
+        {% endif %}
+    </p>
+    <p>
+        {{ text|raw }}
+    </p>
+</div>
+{% endblock content %}
+{% endembed %}
+{% endblock app %}
+
+{% block additionalContents %}
+{{ include("components/bottom-products.html", {paid: user_status.paid}) }}
+{% endblock %}

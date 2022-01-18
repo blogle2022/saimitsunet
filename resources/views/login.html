@@ -1,0 +1,38 @@
+{% extends "layout/base.html" %}
+{% block pageTitle %}ログイン{% endblock %}
+{% block app %}
+<div class="col-sm-8 offset-sm-2">
+    {% embed "components/page-label.html" with{'label': 'ログイン'} %}
+
+    {% endembed %}
+    {% embed "components/content-wrapper.html" with {'id': 'login'} %}
+    {% block content %}
+    <form action="/user/login.php" method="post">
+        {% if loginFailed %}
+        <div class="mb-3">
+            <p>メールアドレスまたはパスワードが間違っています。</p>
+        </div>
+        {% endif %}
+        <div class="mb-3">
+            <label for="email" class="form-label">メールアドレス</label>
+            <input name="mail" type="email" class="form-control" id="email" placeholder="name@example.com" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="password" class="form-label">パスワード</label>
+            <input name="pass" type="password" class="form-control" id="password" required>
+        </div>
+
+        <div>
+            <button type="submit" class="btn btn-primary">ログイン</button>
+        </div>
+        <div class="text-end mt-3">
+            <p>新規登録するかたは<a href="/user/signup.php">こちら</a></p>
+            <p>パスワードをお忘れの方は<a href="{{ urls.reset_password }}">こちら</a></p>
+        </div>
+    </form>
+
+    {% endblock content %}
+    {% endembed %}
+</div>
+{% endblock app %}

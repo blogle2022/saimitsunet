@@ -1,0 +1,4 @@
+<img src="/stella/images/id.gif"><input type="text" name="user" size="20" style="ime-mode:inactive;height:19"> 
+<img src="/stella/images/psw.gif"><input type="password" name="pass" size="10" style="ime-mode:inactive;height:19"> 
+<input type=image src="/stella/images/login.gif" alt="ログイン">
+<a href="/stella/lostpass.php"><img src="/stella/images/pass_2.gif" border="0"></a>

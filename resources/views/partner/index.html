@@ -1,0 +1,161 @@
+{% extends "layout/base.html" %}
+{% block pageTitle %}お相手登録{% endblock %}
+{% block styles %}
+<style>
+    main>* {
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+</style>
+{% endblock %}
+
+{% block app %}
+<div class="col">
+    {% embed "components/content-wrapper.html" with {'id': title} %}
+    {% block content %}
+    {% if user_status.paid %}
+    <div class="list">
+        <h2>お相手リスト</h2>
+        <ul class="list-group list-group-flush">
+            {% for partner in partners %}
+            <li class="list-group-item">
+                <form action="/partner/delete.php" method="POST">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h4>{{ partner.username }}</h4>
+                            <p class="text-secondary">{{ partner.b_place }} -
+                                {{ partner.b_year }}/{{ partner.b_mon }}/{{ partner.b_day }}</p>
+                        </div>
+                        <div>
+                            <button name="id" value="{{ partner.id }}" class="btn btn-danger">削除</button>
+                        </div>
+                    </div>
+                </form>
+            </li>
+            {% else %}
+            <p>登録されているお相手はいません。</p>
+            {% endfor %}
+        </ul>
+    </div>
+    {% if partners|length <= 5 %}
+    {# 登録フォーム #}
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#registModal">
+        お相手の登録（最大5名）
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="registModal" tabindex="-1" aria-labelledby="registModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="registModal">お相手登録</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="/partner/regist.php" method="POST" class="mt-2">
+                        {# 名前 #}
+                        <div class="mb-3">
+                            <label for="name" class="form-label">お名前</label>
+                            <input name="username" type="text" class="form-control" id="name" placeholder="細密太郎"
+                                required />
+                        </div>
+
+                        {# 性別 #}
+                        <div class="mb-4">
+                            <label class="form-label">性別</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="sex" value="m" id="sex_male" />
+                                <label class="form-check-label" for="sex_male"> 男性 </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="sex" value="f" id="sex_female" />
+                                <label class="form-check-label" for="sex_female"> 女性 </label>
+                            </div>
+                        </div>
+
+                        {# 婚姻状況 #}
+                        <div class="mb-4">
+                            <label class="form-label">婚姻状況</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="mar" value="s" id="mariage_s" />
+                                <label class="form-check-label" for="mariage_s"> 未婚 </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="mar" value="m" id="mariage_m" />
+                                <label class="form-check-label" for="mariage_m"> 既婚 </label>
+                            </div>
+                        </div>
+
+                        {# 生年月日 #}
+                        <div class="mb-3">
+                            <label for="birthday" class="form-label">生年月日</label>
+                            <input name="born" type="date" class="form-control" id="birthday" value="1980-01-01"
+                                required />
+                        </div>
+
+                        {# 出生時刻 #}
+                        <div class="mb-4">
+                            <label for="birthtime" class="form-label">出生時刻</label>
+                            <input name="time" type="time" class="form-control" id="birthtime" value="00:00" />
+                        </div>
+
+                        {# 出生場所 #}
+                        <div class="mb-4">
+                            <label class="form-label">出生地</label>
+                            <select name="foreign" id="select-foreign" class="form-select mb-4" aria-label="国内外"
+                                name="国内外" required>
+                                <option value="">選んでください</option>
+                                <option value="0">国内</option>
+                                <option value="1">国外</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-4">
+                            <select id="select-area" class="form-select mb-4" aria-label="出生国" name="area" required>
+                                <option value="" selected>選んでください</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-4">
+                            <select id="select-city" class="form-select mb-4" aria-label="出生国" name="city" required>
+                                <option value="" selected>選んでください</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <button type="submit" class="btn btn-outline-primary">
+                                登録する
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    {% else %}
+    <div>
+        <p>この機能は有償プランに契約中の方のみご利用いただけます。</p>
+    </div>
+    {% endif %}
+    {% endblock content %}
+    {% endembed %}
+</div>
+{% endblock app %}
+
+{% block additionalContents %}
+{{ include("components/bottom-products.html", {paid: user_status.paid}) }}
+{% endblock %}
+
+{% block scripts %}
+{% include "others/set_options.html" %}
+{% include "others/foreign_countries.html" %}
+{% include "others/prefectures_japan.html" %}
+{% endblock %}

@@ -1,0 +1,161 @@
+<?
+include("my_horo.php");
+
+$tomorrow = time() + 86400;
+$year2 = date("Y", $tomorrow);
+$month2 = date("n", $tomorrow);
+$day2 = date("j", $tomorrow);
+
+$weeklater = $tomorrow + 86400 * 6;
+$year3 = date("Y", $weeklater);
+$month3 = date("n", $weeklater);
+$day3 = date("j", $weeklater);
+
+$horo2 = new HoroScope($year2, $month2, $day2, 0, 0, $lon, $lat, $tz);
+$horo2->invokeSWE();
+$horo2->getAbsDegree();
+
+
+$horo3 = new HoroScope($year3, $month3, $day3, 0, 0, $lon, $lat, $tz);
+$horo3->invokeSWE();
+$horo3->getAbsDegree();
+
+
+
+
+$mess = transit($horo,$horo2,$horo3);
+$count = 0;
+for($i=0; $i<count($mess); $i++) {
+	list($a,$b,$c,$d,$e,$f,$g) = explode(",", $mess[$i]);
+	$cpl[$i] = $a;
+	$degl[$i] = $b;
+	$degu[$i] = $c;
+	$bpl[$i] = $d;
+	$deg[$i] = $e;
+	$asp[$i] = $f;
+	$msgid[$i] = $g;
+
+
+	$done = 0;
+
+	$offset = 50 * 6 * ($g - 1) * 2;
+
+	$file = "/srv/phplib/msg/2f_03";
+
+	$fp = fopen($file, "r");
+	fseek($fp, $offset);
+	for($l=0; $l<6; $l++) {
+		$msg[$i][$l] = stripLine(fgets($fp));
+	}
+	fclose($fp);
+	$count++;
+}
+
+?>
+
+							<td align="center" valign="top" bgcolor="#ffffff"><img src="../images/rtop.gif" alt="" width="535" height="22" border="0"><br>
+<font size="+2" color="#99ccff">������</font><font size="+2">��</font><font size="+2" color="gray">���������꡼�������å�</font><font size="+2" color="#99ccff">������<br>
+<hr size="3" width="92%">
+<table width="500" border="0" cellspacing="3" cellpadding="8">
+<tr>
+
+<td align="center">
+<?
+include("my_horographic.php");
+?>
+</td>
+
+</tr>
+
+
+<tr>
+<td align="center">
+<table border="1">
+<tr><td colspan="3"">
+<?
+echo $year2 . "ǯ" . $month2 . "��" . $day2 . "����";
+echo "&nbsp;" . $year3 . "ǯ" . $month3 . "��" . $day3 . "���ޤǤ�<br>";
+echo "�ʹ��������Ƚ����������γ���";
+?>
+</td></tr>
+<tr>
+<td><b>�ʹ���</b></td>
+<td><b>������</b></td>
+<td><b>����</b></td>
+</tr>
+
+
+<?
+for($i=0; $i<$count; $i++) {
+?>
+<tr>
+<td>
+<!--MSGID=
+<?
+echo $msgid[$i];
+?>
+-->
+<?
+echo $jp["$cpl[$i]"];
+?>
+</td>
+<td>
+<?
+echo $jp["$bpl[$i]"];
+?>
+</td>
+<td>
+<?
+echo $asp[$i];
+?>��
+</td>
+</tr>
+<?
+}
+?>
+</table>
+
+
+
+
+
+</td>
+</tr>
+<tr>
+<td align="center">
+
+<table width="100%" border="0" cellspacing="10" cellpadding="0">
+<?
+
+for($i=0; $i<$count; $i++) {
+?>
+<tr height="25"><td align="center" bgcolor="#99ccff">
+<?
+echo $month2 . "/" . $day2 . "��" . $month3 . "/" . $day3 . "�ޤǤ�";
+echo $jp["$cpl[$i]"] . "��";
+echo "��������" . $jp["$bpl[$i]"] . "��";
+echo $asp[$i] . "�٤�ȤäƤ��ޤ���";
+?>
+</td></tr>
+<tr><td>
+<?
+	for($l=1; $l<6; $l++) {
+		echo $msg[$i][$l] . "\n";
+	}
+?>
+</td></tr>
+<?
+}
+?>
+</table>
+</td>
+</tr>
+
+
+
+</table>
+</font><font size="+3" color="gray">
+									<hr size="3" width="92%">
+								</font>
+<p><img src="../images/runder.gif" alt="" width="535" height="22" border="0"></p>
+</td>

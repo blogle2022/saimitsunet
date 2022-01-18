@@ -1,0 +1,92 @@
+<header id="header" class="bg-white">
+    <nav>
+        <div class="container-fluid">
+            <div class="row py-3">
+                <div class="col-6">
+                    <a class="navbar-brand brand-text link-dark" href="{{ user_status.logged_in ? '/uranai' : '/' }}">
+                        <img src="/resources/images/logo.svg">
+                    </a>
+                </div>
+                {% if user_status.logged_in %}
+                <div class="col-6 d-flex justify-content-end align-items-center">
+                    <div>
+                        <div class="dropdown">
+                            <button class="btn btn-outline-secondary dropdown-toggle" type="button"
+                                id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                {{ user.name }}
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <li class="dropdown-item">
+                                    <small>メールアドレス: {{ user.mail }}</small>
+                                </li>
+                                <li class="dropdown-item">
+                                    <a href="/user/edit.php">登録内容の変更</a>
+                                </li>
+                                {% if user_status.paid %}
+                                <li class="dropdown-item">
+                                    <hr>
+                                </li>
+
+                                <li class="dropdown-item">
+                                    <a href="/uranai/setting.php">お相手登録</a>
+                                </li>
+
+                                <li class="dropdown-item">
+                                    <a href="/uranai/chemistry.php">相性（ラポール）</a>
+                                </li>
+
+                                <li class="dropdown-item">
+                                    <a href="/uranai/weekly.php">ウィークリービジョン</a>
+                                </li>
+
+                                <li class="dropdown-item">
+                                    <a href="/uranai/future.php">未来予測（ビジョン）</a>
+                                </li>
+
+                                <li class="dropdown-item">
+                                    <span class="text-secondary">ビジネス占い（準備中）</span>
+                                </li>
+
+                                <li class="dropdown-item">
+                                    <form action="/payment/cancel.php" method="post">
+                                        <button type="submit"
+                                            style="font-size: .7rem; background-color: transparent; border-style: none;"
+                                            class="text-danger">サブスクリプションを解約する</button>
+                                    </form>
+                                </li>
+
+                                {% endif %}
+                                <li class="dropdown-item">
+                                    <hr>
+                                </li>
+
+                                <li>
+                                    <form action="/payment/checkout_horo.php" method="post">
+                                        <input type="hidden" name="_token" value="{{ token }}">
+                                        <button type="submit" style="border: none;background-color: transparent;"
+                                            class="dropdown-item">ホロスコープを購入する</button>
+                                    </form>
+                                </li>
+                                <li class="px-2">
+                                    <hr>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="/user/logout.php">ログアウト</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <div class="col">
+                    <div class="d-flex align-items-center h-100">
+                        <div class="text-end w-100 flex-shrink-0">
+                            <a href="{{ urls.login }}">ログイン</a>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+</header>

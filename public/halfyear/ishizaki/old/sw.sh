@@ -1,0 +1,27 @@
+#!/bin/sh
+/home/tomo/doc/smapp222/www/srv/se1/swetest -pa -head -edir/home/tomo/doc/smapp222/www/srv/se1 -b5.1.2020 -ut18:00 -house139.75,35.68,R -fPZ
+/home/tomo/doc/smapp222/www/srv/se1/swetest -pa -head -edir/home/tomo/doc/smapp222/www/srv/se1 -b12.1.2020 -ut18:00 -house139.75,35.68,R -fPZ
+/home/tomo/doc/smapp222/www/srv/se1/swetest -pa -head -edir/home/tomo/doc/smapp222/www/srv/se1 -b19.1.2020 -ut18:00 -house139.75,35.68,R -fPZ
+/home/tomo/doc/smapp222/www/srv/se1/swetest -pa -head -edir/home/tomo/doc/smapp222/www/srv/se1 -b26.1.2020 -ut18:00 -house139.75,35.68,R -fPZ
+/home/tomo/doc/smapp222/www/srv/se1/swetest -pa -head -edir/home/tomo/doc/smapp222/www/srv/se1 -b2.2.2020 -ut18:00 -house139.75,35.68,R -fPZ
+/home/tomo/doc/smapp222/www/srv/se1/swetest -pa -head -edir/home/tomo/doc/smapp222/www/srv/se1 -b9.2.2020 -ut18:00 -house139.75,35.68,R -fPZ
+/home/tomo/doc/smapp222/www/srv/se1/swetest -pa -head -edir/home/tomo/doc/smapp222/www/srv/se1 -b16.2.2020 -ut18:00 -house139.75,35.68,R -fPZ
+/home/tomo/doc/smapp222/www/srv/se1/swetest -pa -head -edir/home/tomo/doc/smapp222/www/srv/se1 -b23.2.2020 -ut18:00 -house139.75,35.68,R -fPZ
+/home/tomo/doc/smapp222/www/srv/se1/swetest -pa -head -edir/home/tomo/doc/smapp222/www/srv/se1 -b1.3.2020 -ut18:00 -house139.75,35.68,R -fPZ
+/home/tomo/doc/smapp222/www/srv/se1/swetest -pa -head -edir/home/tomo/doc/smapp222/www/srv/se1 -b8.3.2020 -ut18:00 -house139.75,35.68,R -fPZ
+/home/tomo/doc/smapp222/www/srv/se1/swetest -pa -head -edir/home/tomo/doc/smapp222/www/srv/se1 -b15.3.2020 -ut18:00 -house139.75,35.68,R -fPZ
+/home/tomo/doc/smapp222/www/srv/se1/swetest -pa -head -edir/home/tomo/doc/smapp222/www/srv/se1 -b22.3.2020 -ut18:00 -house139.75,35.68,R -fPZ
+/home/tomo/doc/smapp222/www/srv/se1/swetest -pa -head -edir/home/tomo/doc/smapp222/www/srv/se1 -b29.3.2020 -ut18:00 -house139.75,35.68,R -fPZ
+/home/tomo/doc/smapp222/www/srv/se1/swetest -pa -head -edir/home/tomo/doc/smapp222/www/srv/se1 -b5.4.2020 -ut18:00 -house139.75,35.68,R -fPZ
+/home/tomo/doc/smapp222/www/srv/se1/swetest -pa -head -edir/home/tomo/doc/smapp222/www/srv/se1 -b12.4.2020 -ut18:00 -house139.75,35.68,R -fPZ
+/home/tomo/doc/smapp222/www/srv/se1/swetest -pa -head -edir/home/tomo/doc/smapp222/www/srv/se1 -b19.4.2020 -ut18:00 -house139.75,35.68,R -fPZ
+/home/tomo/doc/smapp222/www/srv/se1/swetest -pa -head -edir/home/tomo/doc/smapp222/www/srv/se1 -b26.4.2020 -ut18:00 -house139.75,35.68,R -fPZ
+/home/tomo/doc/smapp222/www/srv/se1/swetest -pa -head -edir/home/tomo/doc/smapp222/www/srv/se1 -b3.5.2020 -ut18:00 -house139.75,35.68,R -fPZ
+/home/tomo/doc/smapp222/www/srv/se1/swetest -pa -head -edir/home/tomo/doc/smapp222/www/srv/se1 -b10.5.2020 -ut18:00 -house139.75,35.68,R -fPZ
+/home/tomo/doc/smapp222/www/srv/se1/swetest -pa -head -edir/home/tomo/doc/smapp222/www/srv/se1 -b17.5.2020 -ut18:00 -house139.75,35.68,R -fPZ
+/home/tomo/doc/smapp222/www/srv/se1/swetest -pa -head -edir/home/tomo/doc/smapp222/www/srv/se1 -b24.5.2020 -ut18:00 -house139.75,35.68,R -fPZ
+/home/tomo/doc/smapp222/www/srv/se1/swetest -pa -head -edir/home/tomo/doc/smapp222/www/srv/se1 -b31.5.2020 -ut18:00 -house139.75,35.68,R -fPZ
+/home/tomo/doc/smapp222/www/srv/se1/swetest -pa -head -edir/home/tomo/doc/smapp222/www/srv/se1 -b7.6.2020 -ut18:00 -house139.75,35.68,R -fPZ
+/home/tomo/doc/smapp222/www/srv/se1/swetest -pa -head -edir/home/tomo/doc/smapp222/www/srv/se1 -b14.6.2020 -ut18:00 -house139.75,35.68,R -fPZ
+/home/tomo/doc/smapp222/www/srv/se1/swetest -pa -head -edir/home/tomo/doc/smapp222/www/srv/se1 -b21.6.2020 -ut18:00 -house139.75,35.68,R -fPZ
+/home/tomo/doc/smapp222/www/srv/se1/swetest -pa -head -edir/home/tomo/doc/smapp222/www/srv/se1 -b28.6.2020 -ut18:00 -house139.75,35.68,R -fPZ

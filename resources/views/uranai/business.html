@@ -1,0 +1,81 @@
+{% extends "layout/base.html" %}
+{% block styles %}
+<link rel="stylesheet" href="/resources/css/uranai.css">
+{% endblock %}
+{% block app %}
+{% embed "components/content-wrapper.html" %}
+{% block content %}
+<div class="col">
+    <div class="contents-header">
+        <ul class="list-group">
+            <li class="list-group-item"><a href="?p=1">会社と経営者の調和</a></li>
+            <li class="list-group-item"><a href="?p=2">あなたと会社のマッチング</a></li>
+            <li class="list-group-item"><a href="?p=3">上司とのwin-win度</a></li>
+            <li class="list-group-item"><a href="?p=5">仕事とのマッチング</a></li>
+            <li class="list-group-item"><a href="?p=6">あなたの出世・昇給度は</a></li>
+        </ul>
+    </div>
+    {% embed "components/uranai-form-wrapper.html" %}
+    {% block uranai %}
+    <div class="forms">
+        <div id="ResultRightDetail">
+            <h2>{{ title }}</h2>
+            <form method="POST" action="?p={{ p }}">
+
+                <input type="hidden" name="p" value="{{ p }}">
+                <input type="hidden" name="command" value="doit">
+                {% if p == "1" or p == "2" %}
+                <span>
+                    会社の創立日
+                    {{ include("uranai/parts/select-date.html", {name: 'company'}) }}
+                </span>
+                {% endif %}
+
+                {% if p == "1" %}
+                <span>
+                    経営者の生年月日
+                    {{ include("uranai/parts/select-date.html", {name: 'ceo'}) }}
+                </span>
+                {% endif %}
+
+                {% if p == "5" %}
+                <span>
+                    配属された日
+                    {{ include("uranai/parts/select-date.html", {name: 'assign'}) }}
+                </span>
+                {% endif %}
+
+                {% if p == "6" %}
+                <span>
+                    配属される予定の日
+                    {{ include("uranai/parts/select-date.html", {name: 'future'}) }}
+                </span>
+                {% endif %}
+
+                {% if p == "3" or p == 4 %}
+                <span>
+                    上司の誕生日
+                    {{ include("uranai/parts/select-date.html", {name: 'boss'}) }}
+                </span>
+                {% endif %}
+
+                <span>
+                    <button type="submit" class="btn btn-dark">占う</button>
+                </span>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% endembed %}
+<p>
+    {{ text|raw }}
+</p>
+</div>
+{% endblock content %}
+{% endembed %}
+{% endblock app %}
+
+{% block additionalContents %}
+{{ include("components/bottom-products.html", {paid: user_status.paid}) }}
+{% endblock %}

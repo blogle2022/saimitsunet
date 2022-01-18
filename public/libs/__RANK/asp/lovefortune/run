@@ -1,0 +1,65 @@
+<?
+include("dbconn.php");
+include("astro.class");
+include("horo.php");
+
+list($lon, $lat, $tz) = location($where);
+if($lon=="" || $lat=="") {
+	$lon = 139.75;
+	$lat = 35.68;
+}
+
+if($test) {
+	$year = "1973";
+	$month = "9";
+	$day = "2";
+	$hour = "0";
+	$min = "0";
+	$lon = 139.75;
+	$lat = 35.68;
+}
+
+$horo = new HoroScope($year,$month,$day,$hour,$min,$lon,$lat,$tz);
+$horo->invokeSWE();
+$horo->getAbsDegree();
+$horo->getAbsDegreeBySign();
+$planet = $horo->calcHousePlanet(5);
+$pl_idx = $house_matrix[$planet];
+$begin_ofs = 62 * 21 * ($pl_idx - 1) * 2;
+$file = "/srv/phplib/msg/4f_07";
+$fp = fopen($file, "r");
+
+
+$line_len = 62;
+$line_cnt = 5;
+
+$hash = intval(($year + $month + $day + $hour + $min) % 16);
+
+
+
+for($j=0; $j<4; $j++) {
+	$content .= "head" . strval($j+1) . "=";
+	$content .= $jp[$planet];
+	$content .= " ���裵���ˤ��뤢�ʤ��������� (��";
+	$content .= strval($j+1);
+	$content .= "��)\n";
+
+	$ofs = $line_len * (1 + $j * $line_cnt);
+	if($hash & (2 ^ $j)) {
+		$ofs += (1 + 4 * $line_cnt) * $line_len;
+	}
+	fseek($fp, ($begin_ofs + $ofs));
+	$txt = "";
+	for($l=0; $l<$line_cnt; $l++) {
+		$txt .= fgets($fp, 1024);
+	}
+	$txt = ereg_replace("\n","",$txt);
+	$txt = ereg_replace("\n","",$txt);
+	$txt = ereg_replace("��","",$txt);
+	$txt = ereg_replace(" ","",$txt);
+	$content .= "text" . strval($j+1) . "=";
+	$content .= $txt . "\n";
+	$res++;
+}
+fclose($fp);
+?>

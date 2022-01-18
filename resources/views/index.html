@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+	{% include "components/googleanalytics.html" %}
+
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+	<title>細密占星術</title>
+
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+	<link rel="stylesheet" href="/resources/css/common.css">
+	<link rel="stylesheet" href="/resources/css/index.css">
+
+	<script>
+		document.addEventListener('DOMContentLoaded', () => {
+			window.onscroll = function () {
+				"use strict";
+				var myNav = document.getElementById('header');
+				var mainVisual = document.getElementById('main-visual');
+
+				if (window.pageYOffset >= 200) {
+					myNav.classList.add("nav-colored");
+				}
+				else {
+					myNav.classList.remove("nav-colored");
+				}
+			};
+		});
+	</script>
+
+	<link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+	<script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+
+	<script>
+		(function (d) {
+			var config = {
+				kitId: 'rlh4uhb',
+				scriptTimeout: 3000,
+				async: true
+			},
+				h = d.documentElement, t = setTimeout(function () { h.className = h.className.replace(/\bwf-loading\b/g, "") + " wf-inactive"; }, config.scriptTimeout), tk = d.createElement("script"), f = false, s = d.getElementsByTagName("script")[0], a; h.className += " wf-loading"; tk.src = 'https://use.typekit.net/' + config.kitId + '.js'; tk.async = true; tk.onload = tk.onreadystatechange = function () { a = this.readyState; if (f || a && a != "complete" && a != "loaded") return; f = true; clearTimeout(t); try { Typekit.load(config) } catch (e) { } }; s.parentNode.insertBefore(tk, s)
+		})(document);
+	</script>
+</head>
+
+<body class="bg-light">
+	<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel"
+		style="width: 60vw; max-width: 360px;">
+		<div class="offcanvas-header">
+			<h5 id="offcanvasRightLabel">メニュー</h5>
+			<button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+		</div>
+		<div class="offcanvas-body">
+			<ul id="content-list" class="list-group list-group-flush list-unstyled">
+				<!-- JS によるメニュー追加 -->
+			</ul>
+		</div>
+	</div>
+
+	<header id="header" class="header sticky-top">
+		<nav>
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col text-end">
+						<div class="d-inline-block">
+							<a href="/user/signup.php" class="link-dark">新規ユーザー登録</a>
+						</div>
+						<div class="actions py-3 px-md-3 d-inline-block">
+							<a href="/user/login.php" class="btn btn-outline-dark">ログイン</a>
+						</div>
+						<div class="py-2 d-inline-block">
+							<button class="btn btn-outline-dark" type="button" data-bs-toggle="offcanvas"
+								data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+								<i class="bi bi-list"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</nav>
+	</header>
+
+	<!-- Main visual -->
+	<div id="main-visual" class="main-visual pb-md-5 add-to-menu" data-headding="トップ">
+		<div class="main-visual__wrapper">
+			<div class="main-visual__image">
+				<div class="swiper main-visual__swiper">
+					<div class="swiper-wrapper">
+						<!-- Slides -->
+						<div class="swiper-slide">
+							<img src="{{ urls.images }}/index/mainvisual_pc_01.png" class="w-100 d-none d-md-inline">
+							<img src="{{ urls.images }}/index/mainvisual_sp_01.png" class="w-100 d-md-none">
+						</div>
+						<div class="swiper-slide">
+							<img src="{{ urls.images }}/index/mainvisual_pc_02.png" class="w-100 d-none d-md-inline">
+							<img src="{{ urls.images }}/index/mainvisual_sp_02.png" class="w-100 d-md-none">
+						</div>
+						<div class="swiper-slide">
+							<img src="{{ urls.images }}/index/mainvisual_pc_03.png" class="w-100 d-none d-md-inline">
+							<img src="{{ urls.images }}/index/mainvisual_sp_03.png" class="w-100 d-md-none">
+						</div>
+					</div>
+
+					<div class="swiper-pagination"></div>
+
+					<div class="swiper-button-prev"></div>
+					<div class="swiper-button-next"></div>
+
+					<div class="swiper-scrollbar"></div>
+				</div>
+			</div>
+			<div class="main-visual__description__origin">
+				<img src="/resources/images/index/badge-itokawa.svg" class="w-100">
+			</div>
+		</div>
+
+		<div class="main-visual__cta text-center">
+			<div class="main-visual__copy w-100">
+				<h3 class="fs-1 noto-sans-900">
+					<small class="d-block mb-3 mb-md-0 fs-5">自分が下す決断が<br class="d-md-none"> ”最適解”
+						だと言えますか？</small>
+					自分を操る、運命の法則
+				</h3>
+			</div>
+
+			{% include "components/cta-regist.html" %}
+		</div>
+	</div><!-- /Main visual -->
+
+	<main role="main">
+		<!-- 細密占星術とは -->
+		<div id="about" class="about bg-white">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-5">
+						<div class="about__image">
+							<img src="{{ urls.images }}/index/itokawa_1.png" class="w-100">
+						</div>
+					</div>
+
+					<div class="col-sm-7">
+						<div class="about__content content-block">
+							<header>
+								<p class="about__outline-title outline-title">DETAILED<br>ASTROLOGY</p>
+								<h2 id="about" class="add-to-menu vldv7-700">細密占星術とは</h2>
+							</header>
+
+							<section class="vldv7-300">
+								<p>はじめに、細密占星術を考案した故・糸川英夫博士を紹介します。</p>
+								<p>
+									糸川博士は「文部省宇宙科学研究所」の母体となった「東京大学生産技術研究所」を発足し、ロケットや人工衛星の打ち上げに日本で初めて成功した「日本における宇宙開発の生みの親」として名高い人物でした。
+								</p>
+								<p>
+									地球の重力圏外にある小惑星に着陸してサンプルを持ち帰るという世界初の偉業を成し遂げた「小惑星探査機はやぶさ」や、「惑星イトカワ」の名をご存知の方もきっと多いと思います。
+								</p>
+								<p>「細密占星術」は、その<strong>糸川博士自らが取り組んだテーマ「天体と誕生日の関係」をおよそ１０年もの歳月を費やし、完璧にデータ化・自動計算化を実現した独自システム</strong>です。
+								</p>
+								<p>なぜ、日本を代表する天才科学者が占星術を研究し、当サービスを生み出すことになったのか？</p>
+							</section>
+
+							<section>
+								<div class="vldv7-700">
+									<button target="_blank"
+										class="d-block mx-auto btn btn-dark w-75 cta__regist border-2 py-1 fw-bold"
+										data-bs-toggle="collapse" data-bs-target="#collapseItokawa"
+										aria-expanded="false" aria-controls="collapseItokawa">
+										<span>もっと詳しく</span>
+										<span class="d-block float-end pr-3">
+											<i class="bi bi-arrow-down"></i>
+										</span>
+									</button>
+								</div>
+							</section>
+
+							<section class="collapse pt-4 vldv7-300" id="collapseItokawa">
+								<p>
+									理由は２つと言われています。
+								</p>
+
+								<ul>
+									<li>第一に、世界中で根強い⼈気と信頼があり、普及していること</li>
+									<li>第二に、他の占いと明らかに異なる、科学的な裏付けがあること</li>
+								</ul>
+								<p>
+									糸川博士は、著書「糸川英夫の細密占星術（主婦と生活社）」の中で占星術を
+									<q>惑星の運行と人間の運命の関わりを明らかにし、そこから行く手を、正確に予測、判断していこうとする科学</q>と要約している。
+								</p>
+								<p>
+									すなわち、<strong>糸川博士は占星術を科学と捉えており、科学者が科学研究に取り組むのは、至極当然</strong>のことでした。
+								</p>
+								<p>
+									その科学研究の成果物として、1977年に日本初の「科学的に運勢を自動計算するWEBサービス」である「細密占星術」が誕生しました。
+								</p>
+								<p>
+									また、糸川博士は科学と占いの関係について、このようにも述べています。
+								</p>
+								<p>
+									<q>
+										<strong>人の運命が”環境”で左右されることは申すまでもない。</strong><br>
+										景気がよいときと、不景気なとき。気候のよいとき、不順なとき。晴れの日、雨の日。<br>
+										こういう人間をとりまく環境の中で、”宇宙”は基本的なベースである。<br>
+										環境を考えるならば、まずは宇宙から第一歩を踏み出さねばならない。<br>
+										つまり、<strong>宇宙がどういう状態にあるか。地球の氷河期が、太陽の黒点とかかわりがあることはよく知られている。<br>
+											私どもに、もっとも身近な天体は、もちろん太陽と地球と月である。<br>
+											しかし、太陽の運命は、宇宙全体の運命の中でひとつであることを考えると、宇宙全体と私どもの運命の間に、ある相互関係がある。と仮定してもよい。<br>
+											天体の配列と人間の運命を結びつける、という発想が、かくして生まれてくる。</strong><br>
+										この間の存在する因果関係のひとつひとつを解明できるほど、現在の科学は進歩していない。<br>
+										<strong>科学はいつも幼児であり、未完成なのである。だからいつも仮説と空想と実証の繰り返しをつづけている。<br>
+											科学と”占い”を結びつけることが”科学”を冒涜する、と考える人がいたなら、科学の実体を知らない人であろう。</strong>
+									</q>
+								</p>
+								<p>
+									ただし、糸川博士は性別、年齢、出生地を不問とする12星座占いには否定的でした。
+								</p>
+								<p>
+									理由は、<q>生まれた瞬間の天体の運行状態があいまいなマスプロ占いであり、<strong>同じ星座に属しているというだけで、何百万人が同じような運命をたどるというのは非科学的</strong>で正確性に欠ける</q>からです。
+								</p>
+								<p>
+									<q><strong>⼀⼈⼀⼈⽣まれた場所も持って⽣まれた性格も違うはずである</strong></q>というのが、糸川博士の考えでした。
+								</p>
+								<p>
+									天⽂学という科学を基盤として、その⼈の出⽣データ（⽣年⽉⽇、出生時間、性別、出生地等）を元に細密なホロスコープを描き出し、経験的事実と占星術上の経験によって、その⼈の「本質」と⼀⽣の「運命」の傾向を示す。
+								</p>
+								<p>それが、糸川博士が目指した細密占星術でした。</p>
+							</section>
+
+							<section>
+								<div>
+									<img src="" alt="">
+									<img src="" alt="">
+									<img src="" alt="">
+								</div>
+							</section>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!-- /細密占星術とは -->
+
+		<!-- ユーザーの声 -->
+		{% set voices = [
+				{
+				'position': '上場企業経営者',
+				'summary': '事業の⽅向性・将来性を探る上でも⼤切なツールになっています。',
+				'comment': '⽴場上、気軽に悩みを打ち明けたり、相談することが難しく感じています。<br>中⻑期的なプランを考える際にも、未来を予測してくれるので決断に安⼼感が持てます。',
+				},
+				{
+				'position': '20代後半のサラリーマン',
+				'summary': '部下との仕事上の関わり⽅を考えすぎて精神的に不安定に。',
+				'comment': 'もともと、コミュニケーションが得意ではないタイプ。⾃分でなんでもやってしまった⽅が気が楽ですが、部下と仕事をする際に、前もって相⼿の本質やバイオリズムを知れることで⼼の安定が保てます。',
+				},
+				{
+				'position': '40代営業',
+				'summary': '取引先の課⻑との相性占いで、どう付き合うべきか作戦を考える。',
+				'comment': '営業職は多くの⼈と関わる仕事。相⼿がどういったタイプなのか傾向を知ることができれば、ビジネスチャンスに繋がります。運気の流れやタイミングなど仕事でも使えるツールです。',
+				},
+				{
+				'position': '３０代フリーランスエンジニア',
+				'summary': 'オンラインでの打ち合わせが多く、相⼿の気持ちが読み取りづらい。',
+				'comment': '直接会って話をすれば、顔⾊や雰囲気で掴める相⼿の気持ちがオンラインではよくわからなくて不安です。<br>⼀度もお会いしないまま仕事が始まることも。⾃分と合う⼈を選んで仕事を取っていきたいです。',
+				},
+			] %}
+		<div id="voice" class="voice mt-0 pt-0 bg-white">
+			<div class="container">
+				<div class="row align-items-stretch">
+					<div class="col-md-6">
+						<header class="mb-2 pb-3 vldv7-300">
+							<p class="outline-title text-center">VOICE</p>
+							<h2 id="voices" class="text-center add-to-menu fs-4 vldv7-700">ユーザーの声</h2>
+							<h3 class="fs-6">日本最古の占いサイトとして運営してきた細密占星術。<br>
+								長期ユーザー様のインタビューを紹介いたします。</h3>
+							<p>実際に細密占星術を利用されているユーザーの方々から寄せられた声の中からビジネスユースを一部ご紹介します。</p>
+
+							<p>ビジネスでのお悩みをどこに相談したらいいのかわからない。<br>
+								できれば自分で解決したい。とお考えの新規ユーザーの方。<br>
+								是非、こちらを参考に細密占星術をスタートしてみてください。</p>
+						</header>
+					</div>
+
+					<div class="col-md-6">
+						<div class="voices__image"
+							style="background-image: url(/resources/images/index/voices.jpg); background-size: cover;min-height: 200px;">
+						</div>
+					</div>
+				</div>
+
+				<div class="row justify-content-center mt-5">
+					{% for voice in voices %}
+					<div class="col-md-6 pt-4 px-4">
+						<div class="voice__content content-block d-flex">
+							<div class="fs-1 pe-4 pragmatica-200">
+								{{ "%02d"|format(loop.index) }}
+							</div>
+
+							<div class="pt-1">
+								<header>
+									<p class="mb-1"><small class="vldv7-300">{{ voice.position }}</small></p>
+									<h3 class="fs-6 vldv7-700">{{ voice.summary }}</h3>
+								</header>
+
+								<section class="mt-3 vldv7-300">
+									<p>
+										{{ voice.comment|raw }}
+									</p>
+								</section>
+							</div>
+						</div>
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div><!-- /ユーザーの声 -->
+
+		<!-- 過去現在未来 -->
+		<div id="time" class="time">
+			<div class="time__visual-sp d-md-none"></div>
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-7 offset-sm-5">
+						<div class="time__content content-block">
+							<header>
+								<p class="outline-title time__title">
+									PRESENT,<br>
+									PAST,FUTURE
+								</p>
+							</header>
+
+							<section>
+								<p class="fw-bold vldv7-700">現在、過去、未来</p>
+								<p class="vldv7-300">
+									細密占星術では、「⽣まれた時」「今」「未来」の３つの時間と、⾃分と相⼿もしくは会社（組織）の関係性を組み合わせて、あなたの”運命”を読みときます。<br>
+									他⼈からの助⾔より、⾃分できちんと調べて、納得した上で⾏動に移したい。<br>
+									そういった⽅に最適です。<br>
+									是⾮、⼈⽣の指標となる「細密占星術」を試してみませんか？
+								</p>
+							</section>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!-- /過去現在未来 -->
+
+		<!-- CTA -->
+		<div id="cta" class="cta bg-dark text-light">
+			<div class="container">
+				<div class="row justify-content-center">
+					<div class="col-sm-5">
+						<div class="cta__content content-block my-4 vldv7-700">
+							<header>
+								<h2>無料会員になって<br>今すぐ今日の占い！</h2>
+							</header>
+
+							<section>
+								<form action="/user/signup.php" method="post">
+									<label class="mb-2">無料会員登録</label>
+									<input type="email" name="email" id="email" placeholder="メールアドレス"
+										class="form-control mb-4" required>
+									<button type="submit" class="btn w-100" style="background-color: #FFFF00;">
+										<span>無料会員登録</span>
+										<span class="d-block float-end pe-3"><i class="bi bi-arrow-right"></i></span>
+									</button>
+								</form>
+							</section>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!-- /CTA -->
+
+		{% include "components/premium.html" %}
+		{% include "components/features.html" %}
+		{% include "components/cta-regist.html" %}
+		{% include "components/horoscope.html" %}
+
+	</main>
+	{% include "components/company.html" %}
+	{% include "components/footer.html" %}
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+		crossorigin="anonymous"></script>
+
+	<script>
+		const swiper = new Swiper('.main-visual__swiper', {
+			slidersPerView: 1,
+			spaceBetween: 30,
+			effect: 'fade',
+			// Optional parameters
+			direction: 'horizontal',
+			loop: true,
+
+			// If we need pagination
+			pagination: {
+				el: '.swiper-pagination',
+			},
+
+			// Navigation arrows
+			navigation: {
+				nextEl: '.swiper-button-next',
+				prevEl: '.swiper-button-prev',
+			},
+
+			// And if we need scrollbar
+			scrollbar: {
+				el: '.swiper-scrollbar',
+			},
+
+			autoplay: {
+				delay: 8000,
+			}
+		});
+
+		const headdingList = document.getElementsByClassName('add-to-menu');
+		let menuTag = '';
+		for (const headding of headdingList) {
+			const headdingText = headding.dataset.headding ?? headding.innerText;
+			menuTag += `<li class="mb-4"><a href="#${headding.id}">${headdingText}</a></li>\n`;
+		}
+		const menuUl = document.getElementById('content-list');
+		menuUl.innerHTML = menuTag;
+	</script>
+</body>
+
+</html>

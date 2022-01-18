@@ -1,0 +1,83 @@
+<!-- プレミアム -->
+<div id="plans" class="plans">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-sm-10">
+                <div class="plans__content">
+                    <header class="text-center text-white">
+                        <h2 id="premium" class="fs-3 add-to-menu vldv7-700">有料会員になる<br>メリット</h2>
+                        <img src="/resources/images/premium-pr.svg" class="plans__summary w-100">
+                        <p class="my-4 fs-4 vldv7-700">多角的なメンタルサポートをご自身のタイミングで行えます</p>
+                    </header>
+
+                    <section class="plans__prices pt-3">
+                        <h3 class="text-center mt-5 mb-3 text-white d-none d-block">料金プランは2つ</h3>
+
+                        <div class="plans__price row justify-content-center align-items-stretch">
+                            {% if not products[1]['subscribed'] %}
+                            <div class="plans__card col-sm-6">
+                                <div class="card">
+                                    <div class="card-body d-flex flex-column h-100">
+                                        <header class="text-center mb-4">
+                                            <p class="outline-title fs-2 text-center">SUBSCRIPTION</p>
+                                            <h5 class="card-subtitle mt-4 text-muted vldv7-700">サブスクリプション</h5>
+                                        </header>
+
+                                        <section class="price fs-2 fw-bold text-center">
+                                            <span class="noto-sans-700">月額</span>
+                                            <span
+                                                class="fs-1 pragmatica-700">{{ uranaiList.price.subscription | number_format }}</span>
+                                            <span class="noto-sans-700">円</span>
+                                            <hr>
+                                        </section>
+
+                                        <section class="vldv7-400">
+                                            <p class="card-text">
+                                                ご自身の他に登録した5名の占いが可能です。<br>
+                                                ※5名は変更可能
+                                            </p>
+                                            <ul>
+                                                <li>ウイークリービジョン</li>
+                                                <li>相性(ラポール)</li>
+                                                <li>未来予測(ビジョン)</li>
+                                                <li>ビジネス占い（会社を占えます）※準備中</li>
+                                            </ul>
+                                        </section>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+
+                            <div class="plans__card col-sm-6">
+                                <div class="card">
+                                    <div class="card-body d-flex flex-column h-100">
+                                        <header class="text-center mb-4">
+                                            <p class="outline-title fs-2 text-center">HOROSCOPE</p>
+                                            <h5 class="card-subtitle mt-4 text-muted vldv7-700">ホロスコープ</h5>
+                                        </header>
+
+                                        <section class="price fs-2 fw-bold text-center">
+                                            <span class="noto-sans-700">一件</span>
+                                            <span
+                                                class="fs-1 pragmatica-700">{{ uranaiList.price.horoscope | number_format }}</span>
+                                            <span class="noto-sans-700">円</span>
+                                            <hr>
+                                        </section>
+
+                                        <section>
+                                            <p class="card-text vldv7-300">
+                                                生年月日、時間、場所によってホロスコープを作成します。<br>
+                                                そこから読み解いた本質を見ることができます。<br>
+                                                ご自身だけでなく、お調べしたい方のものを購入可能です。
+                                            </p>
+                                        </section>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!-- /プレミアム -->

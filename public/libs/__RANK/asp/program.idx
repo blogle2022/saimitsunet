@@ -1,0 +1,14 @@
+<?
+
+$aspdir = "/srv/phplib/asp";
+
+$prog["1f_00"] = "daily";
+$prog["4f_07"] = "lovefortune";
+$prog["7f_02"] = "moneyfortune";
+$prog["3f_02"] = "yourtalent";
+$prog["5f_10"] = "halfyear";
+$prog["4f_01"] = "match";
+
+
+
+?>

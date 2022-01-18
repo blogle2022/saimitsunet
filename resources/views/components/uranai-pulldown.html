@@ -1,0 +1,13 @@
+<div id="uranai-list">
+    <div class="dropdown text-end">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            何を占いますか？
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            {% for index, cate in categories %}
+            <li><a class="dropdown-item" href="?p={{ index }}">{{ cate }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>

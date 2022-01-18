@@ -1,0 +1,120 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css");
+
+* {
+  background-repeat: no-repeat;
+}
+
+*:not(input[type="radio"], div, p, span) {
+  border-radius: 0 !important;
+}
+
+body {
+  background-color: #f6f4f2;
+  font-family: NotoSansCJKjp;
+}
+
+/*****
+  フォントファミリー
+ *****/
+.font-serif {
+  font-family: serif;
+}
+
+/* Pragmatica */
+.pragmatica-200 {
+  font-family: pragmatica-extended, sans-serif;
+  font-weight: 200;
+  font-style: normal;
+}
+
+.pragmatica-400 {
+  font-family: pragmatica, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.pragmatica-700 {
+  font-family: pragmatica, sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* VLD V7 */
+.vldv7-300 {
+  font-family: vdl-v7mincho, sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.vldv7-700 {
+  font-family: vdl-v7mincho, sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* Noto Sans CJK JP */
+.noto-sans-400 {
+  font-family: noto-sans-cjk-jp, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.noto-sans-700 {
+  font-family: noto-sans-cjk-jp, sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.noto-sans-900 {
+  font-family: noto-sans-cjk-jp, sans-serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
+/* バックグラウンドカラー */
+.bg-aishou {
+  background-color: #f57412;
+}
+
+.bg-weekly {
+  background-color: #d61111;
+}
+
+.bg-future {
+  background-color: #119e8e;
+}
+
+.bg-business {
+  background-color: #000000;
+}
+
+.bg-horo {
+  background-color: #244691;
+}
+
+.bg-setting {
+  background-color: #0379ae;
+}
+
+.outline-title {
+  line-height: 80%;
+  color: transparent;
+  text-stroke: 1px #ddd;
+  -webkit-text-stroke: 1px #ddd;
+  font-size: 2rem;
+  text-align: center;
+  font-family: pragmatica, sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+q {
+  font-style: italic;
+}
+
+@media screen and (min-width: 768px) {
+  .outline-title {
+    font-size: 4rem;
+    text-align: start;
+  }
+}

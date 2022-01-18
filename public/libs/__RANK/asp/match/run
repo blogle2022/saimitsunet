@@ -1,0 +1,116 @@
+<?
+include("dbconn.php");
+include("astro.php");
+$datdir = $aspdir . "/dat";
+
+list($lon, $lat, $tz) = location($where);
+if($lon=="" || $lat=="") {
+	$lon = 139.75;
+	$lat = 35.68;
+}
+list($lon2, $lat2, $tz2) = location($where2);
+if($lon2=="" || $lat2=="") {
+	$lon2 = 139.75;
+	$lat2 = 35.68;
+}
+
+if($test) {
+	$year = "1973";
+	$month = "9";
+	$day = "2";
+	$hour = "0";
+	$min = "0";
+	$lon = 139.75;
+	$lat = 35.68;
+
+	$year2 = "1973";
+	$month2 = "9";
+	$day2 = "2";
+	$hour2 = "0";
+	$min2 = "0";
+	$lon2 = 139.75;
+	$lat2 = 35.68;
+
+
+}
+
+
+
+#print_r($_POST);
+
+$horo = new HoroScope($year,$month,$day,$hour,$min,$lon,$lat,$tz);
+$horo->invokeSWE();
+$horo->getAbsDegree();
+$horo->getAbsDegreeBySign();
+
+$partner = new HoroScope($year2,$month2,$day2,$hour2,$min2,$lon2,$lat2,$tz2);
+$partner->invokeSWE();
+$partner->getAbsDegree();
+$partner->getAbsDegreeBySign();
+#print_r($horo);
+#print_r($partner);
+
+
+$Sun0 = $horo->planets["Sun"]->absPosBySign;
+$Sun1 = $partner->planets["Sun"]->absPosBySign;
+
+$Moon0 = $horo->planets["Moon"]->absPosBySign;
+$Moon1 = $partner->planets["Moon"]->absPosBySign;
+
+$Jupiter0 = $horo->planets["Jupiter"]->absPosBySign;
+$Jupiter1 = $partner->planets["Jupiter"]->absPosBySign;
+
+$Mars0 = $horo->planets["Mars"]->absPosBySign;
+$Mars1 = $partner->planets["Mars"]->absPosBySign;
+
+$Venus0 = $horo->planets["Venus"]->absPosBySign;
+$Venus1 = $partner->planets["Venus"]->absPosBySign;
+
+$Mercury0 = $horo->planets["Mercury"]->absPosBySign;
+$Mercury1 = $partner->planets["Mercury"]->absPosBySign;
+
+include("/srv/phplib/asp/calcMatch");
+
+$idx[0] = calcMatch($Sun0, $Sun1, $Moon0, $Moon1);
+$idx[1] = 30 + calcMatch($Sun0, $Sun1, $Jupiter0, $Jupiter1);
+$idx[2] = 90 + calcMatch($Sun0, $Sun1, $Venus0, $Venus1);
+$idx[3] = 120 + calcMatch($Sun0, $Sun1, $Mercury0, $Mercury1);
+$idx[4] = 60 + calcMatch($Sun0, $Sun1, $Mars0, $Mars1);
+
+$file = "/srv/phplib/msg/4f_01a";
+
+$titles = array("����","��ʡ","����","����","���å���");
+
+$line_len = 50;
+$line_cnt = 3;
+
+$hash = intval(($year + $month + $day + $hour + $min) % 16);
+$fp = fopen($file, "r");
+
+for($i=0; $i<5; $i++) {
+    $begin_ofs = 50 * 13 * ($idx[$i] - 1) * 2;
+
+
+	for($j=0; $j<4; $j++) {
+		$res++;
+		$content .= "head" . strval($res) . "=" . "�դ����������" . $titles[$i];
+		$content .= " (��" . strval($j+1) . "��)\n";
+		$ofs = $line_len * (1 + $j * $line_cnt);
+		if($hash & (2 ^ $j)) {
+			$ofs += (1 + 4 * $line_cnt) * $line_len;
+		}
+		fseek($fp, ($begin_ofs + $ofs));
+		$txt = "";
+		for($l=0; $l<$line_cnt; $l++) {
+			$txt .= fgets($fp, 1024);
+		}
+		$txt = ereg_replace("\n","",$txt);
+		$txt = ereg_replace("\n","",$txt);
+		$txt = ereg_replace("��","",$txt);
+		$txt = ereg_replace(" ","",$txt);
+		$content .= "text" . strval($res) . "=";
+		$content .= $txt . "\n";
+	}
+    }
+    fclose($fp);
+?>

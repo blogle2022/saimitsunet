@@ -1,0 +1,153 @@
+{% extends "layout/base.html" %}
+{% block styles %}
+<link rel="stylesheet" href="/resources/css/uranai.css">
+{% endblock %}
+{% block pageTitle %}未来の運勢{% endblock %}
+{% block app %}
+<div class="col-12">
+    {% embed "components/content-wrapper.html" with {'id': 'horo'} %}
+    {% block content %}
+
+    {#
+        <div class="bg-white">
+            <img src="/images/chart2.jpg" />
+            <img src="/horo?{{ horoarg }}basesize=150" />
+            <img src="/images/chart3.jpg" />
+        </div>
+        #}
+
+    <div class="horo-list">
+        <div class="horo-list__select w-50 ms-auto">
+            <form method="post" id="horo-form">
+                <input type="hidden" name="_token" value="{{ token }}">
+                <select name="horoscope" id="horoscope" class="form-control">
+                    <option value="" selected>占い対象を選択する</option>
+                    {% for target in horo_target_list %}
+                    <option value="{{ target.horoscope }}">{{ target.nickname ?: '名前が設定されていません' }}</option>
+                    {% else %}
+                    <option value="">占う対象がいません</option>
+                    {% endfor %}
+                    <option value="__add">＋占う人を追加</option>
+                </select>
+            </form>
+        </div>
+    </div>
+    <hr class="border border-success">
+    <h2><i class="bi bi-signpost-split"></i> {{ title }}</h2>
+    <p>生年月日、生まれた場所がわかれば、どなたのホロスコープも購入可能です</p>
+    <ul class="list-unstyled">
+        <li>１．＋占う人を追加　でホロスコープを購入します</li>
+        <li>２．名前が設定されていません　を選択し、ホロスコープに必要な情報を入力ください</li>
+        <li>３．占い対象を選択する　から占う人を選んでください</li>
+    </ul>
+    {% if method == 'post' %}
+    {% if horoarg %}
+    <div class="horoscope-results" style="max-width: 700px">
+        <h3 class="mt-5">名前: {{ nickname }}</h3>
+        <div class="bg-white">
+            <img src="/images/chart2.jpg" style="width:13%;" />
+            <img src="/horo?{{ horoarg }}basesize=150" style="width:70%;" />
+            <img src="/images/chart3.jpg" style="width:13%;" />
+        </div>
+
+        <div>
+            {{ text | raw }}
+        </div>
+    </div>
+    {% else %}
+    <form action="" method="post">
+        <input type="hidden" name="method" value="put">
+        <input type="hidden" name="horoscope" value="{{ horoscope }}">
+        <div class="row">
+            <div class="col">
+                <div class="form-content">
+                    <label for="nickname"><span>名前</span></label>
+                    <input type="text" name="nickname" id="nickname" class="form-control" required>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-content">
+                    <label for="birthday"><span>生年月日</span></label>
+                    <input type="date" name="birthday" id="birthday" class="form-control" required>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="form-content">
+                    <label for="birthtime"><span>出生時刻</span></label>
+                    <input type="time" name="birthtime" id="birthtime" class="form-control" value="00:00">
+                </div>
+            </div>
+
+            <div class="w-100"></div>
+
+            {# 出生場所 #}
+            <div class="col-12">
+                <div class="mt-4">
+                    <label class="form-label">出生地</label>
+                </div>
+            </div>
+
+            <div class="col">
+                <select name="foreign" id="select-foreign" class="form-select mb-4" aria-label="国内外" name="国内外"
+                    required>
+                    <option value="">選んでください</option>
+                    <option value="0">国内</option>
+                    <option value="1">国外</option>
+                </select>
+            </div>
+
+            <div class="col">
+                <select id="select-area" class="form-select mb-4" aria-label="出生国" name="area" required>
+                    <option value="" selected>選んでください</option>
+                </select>
+            </div>
+
+            <div class="col">
+                <select id="select-city" class="form-select mb-4" aria-label="出生国" name="city" required>
+                    <option value="" selected>選んでください</option>
+                </select>
+            </div>
+
+            <div class="col-12">
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-primary">登録する</button>
+                </div>
+            </div>
+        </div>
+    </form>
+    {% endif %}
+    {% endif %}
+    {% endblock content %}
+    {% endembed %}
+</div>
+{% endblock app %}
+
+{% block additionalContents %}
+{{ include("components/bottom-products.html", {paid: user_status.paid}) }}
+{% endblock %}
+
+{% block scripts %}{% include "others/set_options.html" %}
+{% include "others/foreign_countries.html" %}
+{% include "others/prefectures_japan.html" %}
+<script>
+    const select = document.getElementById('horoscope');
+
+    const selectHoro = (e) => {
+        const optionValue = select.value;
+        const horoscopeForm = document.getElementById('horo-form');
+        if ('__add' === optionValue) {
+            horoscopeForm.action = '/payment/checkout_horo.php';
+            horoscopeForm.submit();
+        } else if ("" === optionValue) {
+            //
+        } else {
+            const curretnLocation = window.location.href;
+            horoscopeForm.action = curretnLocation;
+            horoscopeForm.submit();
+        }
+    }
+
+    select.addEventListener('change', selectHoro);
+</script>
+{% endblock %}

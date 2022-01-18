@@ -1,0 +1,97 @@
+<?
+include("dbconn.php");
+include("astro.php");
+$datdir = $aspdir . "/dat";
+
+list($lon, $lat, $tz) = location($where);
+if($lon=="" || $lat=="") {
+	$lon = 139.75;
+	$lat = 35.68;
+}
+
+$today = time();
+$year_t = date("Y", $today);
+$month_t = date("n", $today);
+$day_t = date("j", $today);
+
+
+if($test) {
+	$year = "1973";
+	$month = "9";
+	$day = "2";
+	$hour = "0";
+	$min = "0";
+	$lon = 139.75;
+	$lat = 35.68;
+
+	$year_t = "2006";
+	$month_t = "7";
+	$day_t = "4";
+
+}
+
+
+$horo = new HoroScope($year,$month,$day,$hour,$min,$lon,$lat,$tz);
+$horo->invokeSWE();
+$horo->getAbsDegree();
+$horo->getAbsDegreeBySign();
+
+
+$horo_t = new HoroScope($year_t, $month_t, $day_t, 0, 0, $lon, $lat, $tz);
+$horo_t->invokeSWE();
+$horo_t->getAbsDegree();
+$horo_t->getAbsDegreeBySign();
+$TrMoonPos = $horo_t->planets["Moon"]->absPosBySign;
+
+$t_planets = array("Venus","Venus","Mars","Mars","Jupiter","Mercury","Sun","Moon");
+$Asps = array(0,120,60,144,72,30,45,135,150,90,180);
+$Orb = 3;
+
+$titles = array(
+	"��ֱ���̤���Ԥऱ��",
+	"��ֱ��ʴ����Ԥऱ��",
+	"���å�������̤���Ԥऱ��",
+	"���å������ʴ����Ԥऱ��",
+	"������",
+	"�ӥ��ͥ���",
+	"�򹯱�",
+	"�пͱ�");
+$hash = intval( ( $year + $month + $day + $day_t ) % 12 );
+$umeidx = intval( ( $year + $month + $day ) % 5 );
+
+$line = 0;
+$fp = fopen("$aspdir/dat/mail30a.txt", "r");
+
+while(!feof($fp)) {
+	$text[$line] = fgets($fp, 128);
+	$line++;
+}
+fclose($fp);
+##echo "\n";
+for($i=0; $i<8; $i++) {
+	$ofs = $i * 16;
+	$diff = abs($TrMoonPos - $horo->planets["$t_planets[$i]"]->absPosBySign);
+	if($diff > 180) $diff = 360 - $diff;
+	##echo "$diff\n";
+	$found = 0;
+	for($j=0; $j<11; $j++) {
+		if(abs($diff - $Asps[$j]) <= $Orb) {
+			$msgidx = $ofs + $j + 1;
+			$found = 1;
+			break;
+		}
+	}
+	if(!$found) {
+		$msgidx = $ofs + 12 + $umeidx;
+
+	}
+	$lineidx = ($msgidx - 1) * 12 + $hash;
+	##echo "$i $diff $msgidx  $lineidx \n";
+	$content .= 'head' . strval($i+1) . "=" . $titles[$i] . "\n";
+	$content .= "text" . strval($i+1) . "="
+		. ereg_replace("^[A-Z]\-[0-9]+\t","",$text[$lineidx]);
+}
+$res = 8;
+
+
+?>

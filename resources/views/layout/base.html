@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja" class="h-100">
+
+<head>
+    {% include "components/googleanalytics.html" %}
+
+    <title>{% block pageTitle %}{% endblock %}{{ block('pageTitle') ? ' - ' : '' }}細密占星術-12星座で占う毎日の運勢</title>
+    <meta name="keywords" content="星占い,星座,相性,性格,占星術,ダイエット,運勢,無料占い,タロット">
+    <meta name="description"
+        content="ホロスコープが導くあなたの星座相性と運勢。無料占い、カップルの未来を探る恋愛運、もう一度見直そう効果的なダイエット、仕事で成功するためのアドバイス、充実のタロット診断。12星座が導く星占いは細密占星術">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link rel="stylesheet" href="/resources/css/common.css">
+    <link rel="stylesheet" href="/resources/css/header.css">
+
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+
+    <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+    {% block styles %}{% endblock %}
+</head>
+
+<body class="d-flex flex-column h-100 {% block additionalClasses %}{% endblock %}">
+    {{ include("components/header.html", {token: token}) }}
+
+    <div class="topvisual">
+        <img src="{{ urls.images }}/uranai/topvisual.svg" class="w-100">
+    </div>
+
+    <main role="main" id="main" class="flex-shrink-0">
+        <div class="main-wrapper my-5 bg-white">
+            <div class="container">
+                <div class="row">
+                    {% block app %}{% endblock %}
+                </div>
+            </div>
+        </div>
+
+        {% block additionalContents %}{% endblock %}
+    </main>
+    {% include "components/company.html" %}
+    {% block beforeFooter %}{% endblock %}
+
+    {% include "components/footer.html" %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    </script>
+    {% block scripts %}{% endblock %}
+</body>
+
+</html>

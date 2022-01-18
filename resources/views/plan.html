@@ -1,0 +1,41 @@
+{% extends "layout/base.html" %}
+{% block pageTitle %}占いの購入{% endblock %}
+{% block app %}
+<div class="col-sm-4">
+    {% embed "components/content-wrapper.html" with {'id': 'plans'} %}
+    {% block content %}
+    <div id="plans" class="content-wrapper bg-white pt-4px-5 mb-5">
+        <div class="text-center">
+            <div class="mb-4">
+                <h2 class="fs-4">プレミアム</h2>
+            </div>
+
+            <form action="/payment/checkout.php" method="post" class="my-5">
+                <p>
+                    ¥ <span class="fs-3">980</span> <small>/年</small><br>
+                </p>
+                <input type="hidden" name="price_id" value="price_1Jw4cBDcIsNrsZEOZPGF9chk">
+                <input type="hidden" name="_token" value="{{ token }}">
+                <button type="submit" class="btn btn-primary">支払いに進む</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="plans" class="content-wrapper bg-white pt-4px-5 mb-5">
+        <div class="text-center">
+            <div class="mb-4">
+                <h2 class="fs-4">プレミアム</h2>
+            </div>
+
+            <form action="/payment/checkout.php" method="post" class="my-5">
+                <p>
+                    ¥ <span class="fs-3">5,000</span> <small>/年</small><br>
+                </p>
+                <button type="submit" class="btn btn-primary">支払いに進む</button>
+            </form>
+        </div>
+    </div>
+    {% endblock content %}
+    {% endembed %}
+</div>
+{% endblock app %}

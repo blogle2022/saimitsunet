@@ -1,0 +1,115 @@
+<style>
+    .swiper-custom-button {
+        margin-top: -200px;
+        color: #999;
+    }
+</style>
+
+{% set sliders = [
+    {
+        'title': '相性(ラポール)',
+        'summary': '二者間の信頼関係・親和性',
+        'description':
+        '一般的に二者間の親和性・相性というと恋愛を想像されますが、相性は男女に限ったことではありません 人との関わりは親子、友人、仕事関係など恋人意外にも様々あります
+        たとえ血が繋がった親子でも合う合わないがあるように、本質的な相性と日々環境の変化に合わせて変わってくる相性の2つがあります
+        本質的な相性を見極めた上に、日々変化するお互いのバイオリズムをチェックすることで、最適な対応や事前の心構えができるようになります ビジネスにおいて一番大切なのは人間関係です。ぜひ細密占星術の相性占いをビジネスツールとして活用してみましょう。',
+        'image': 'uranai-aishou_1.jpg',
+        'subscription': true,
+    },
+    {
+        'title': '未来予測(ビジョン)',
+        'summary': '生まれた時に決まる運命と、近い将来訪れる運命',
+        'description':
+        '細密占星術のビジョン(未来予測)は、生まれ持った運命と、近い将来訪れる運命を調べることができます。自分自身を客観的に見ることで自分を深く理解することができます。1年分の予測と半年ずつ更新される半期予測で良い時、注意するべき時がわかりますので、大きな決断を予定している人は是非確認してみてください。 備えておくことで、これから訪れるチャンスを逃さず活かすことが出来ます。',
+        'image': 'uranai-mirai_1.jpg',
+        'subscription': true,
+    },
+    {
+    'title': 'ウイークリービジョン',
+    'summary': '今週の環境を整える',
+    'description':
+    '近い未来の予測をし準備をすることで、心と環境を整えましょう。<br>ご本人と登録した方の運勢を確認することで、今週がどういった傾向になるのかを読み解き、準備をすることができます。日々の生活の基盤となるものですので、こまめにチェックしてみましょう。<br>信頼関係や親和性は生活や仕事の上でとても大切なことです。あまり合わないと思う方との仕事の場合は特に注意が必要です。お互いの状態を確認した上で付き合うことで、トラブルを避け仕事で結果を残すことができるようになります。人生を豊かにするための準備としてご利用ください。',
+    'image': 'uranai-weekly.jpg',
+    'subscription': true,
+    },
+]
+%}
+
+<!-- サブスクリプションの特徴 -->
+<div id="features" class="features">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="features__title text-center mb-5">
+                    <header>
+                        <p class="outline-title text-center">SUBSCRIPTION</p>
+                        <h2 id="subscription" class="add-to-menu">サブスクリプション 3つの特徴</h2>
+                    </header>
+
+                    <section>
+                        <p>
+                            「生まれた時」「今」「未来」の3つの時間と自分と相手、もしくは自分と会社(組織)の2つの関係性から"運命"を読み解きます。
+                        </p>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="swiper features__slider-2">
+        <div class="swiper-wrapper">
+            {% for slider in sliders %}
+            <div id="slider_{{ loop.index }}" class="swiper-slide feature__slider px-3 px-md-4">
+                <div class="slider__visual p-3 d-flex align-items-end"
+                    style="background-image:url({{ urls.images }}/index/{{ slider.image }});background-size: cover">
+                    <div class="visual__title text-white">
+                        {% if slider.subscription %}
+                        <span class="border border-white rounded-pill px-4 py-1 title__subscription">SUBSCRIPTION</span>
+                        {% endif %}
+                        <h3 class="fs-1">{{ slider.title }}</h3>
+                    </div>
+                </div>
+
+                <div class="slider__text">
+                    <h4 class="text-center my-5">{{ slider.summary }}</h4>
+                    <p>{{ slider.description|raw }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <!-- If we need pagination -->
+        <div class="swiper-pagination"></div>
+
+        <!-- If we need navigation buttons -->
+        <div class="swiper-button-prev swiper-custom-button"></div>
+        <div class="swiper-button-next  swiper-custom-button"></div>
+    </div>
+</div><!-- /サブスクリプションの特徴 -->
+<script>
+    const swiper2 = new Swiper('.features__slider-2', {
+        slidesPerView: 1,
+        spaceBetween: 30,
+        centeredSlides: true,
+        loop: true,
+        breakpoints: {
+            768: {
+                slidesPerView: 2
+            },
+        },
+
+        // If we need pagination
+        pagination: {
+            el: '.swiper-pagination',
+        },
+
+        // Navigation arrows
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+
+        // And if we need scrollbar
+        scrollbar: {
+            el: '.swiper-scrollbar',
+        },
+    });
+</script>

@@ -1,0 +1,1 @@
+<div align="center"><a href="http://ehon-asobo.com" target="_new"><img border="1" src="images/ehon.gif" width="234" height="60"></a></div>

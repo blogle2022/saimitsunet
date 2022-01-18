@@ -1,0 +1,37 @@
+<?
+##
+## results/6f_02.result で使用されている
+## 与えられたHoroscopeオブジェクトの各惑星が，0,180,120,90.60の角度をとるかどうかを
+## チェックする．
+##
+function aspect($horo) {
+
+	$plnts = array("Moon","Sun","Mercury","Venus","Mars","Jupiter",
+			"Saturn","Uranus","Neptune","Pluto");
+
+	$degs = array(0, 180, 120, 90, 60);
+	$errs = array(3, 3, 3, 3, 3);
+	$cnt = 1;
+	$result = array();
+	for($i=0; $i<10; $i++) {
+		for($j=0; $j<5; $j++) {
+			for($k=$i+1; $k<10; $k++) {
+				$i_pos = $horo->planets["$plnts[$i]"]->absPos;
+				$k_pos = $horo->planets["$plnts[$k]"]->absPos;
+				$diff = abs($i_pos - $k_pos);
+				if($diff > 180) $diff = 360 - $diff;
+
+				$low = $degs[$j] - $errs[$j];
+				$high = $degs[$j] + $errs[$j];
+
+				if( ($low<$diff) && ($diff<$high) ) {
+					$result[] = array($plnts[$i],$plnts[$k],$degs[$j],$cnt);
+				}
+				$cnt++;
+			}
+		}
+	}
+	return $result;
+}
+		
+?>

@@ -1,0 +1,482 @@
+<script>
+    const foreignCountries = [
+        {
+            country: '不明',
+            city: '不明'
+        },
+        {
+
+            country: "インド",
+            city: 'カルカッタ'
+        },
+        {
+
+            country: "インドネシア",
+            city: 'ジャカルタ'
+        },
+        {
+            country: "シンガポール",
+            city: 'シンガポール'
+        },
+        {
+            country: "スリランカ",
+            city: 'コロンボ'
+        },
+        {
+            country: "タイ",
+            city: 'バンコク'
+        },
+        {
+            country: "韓国",
+            city: 'ソウル'
+        },
+        {
+            country: "韓国",
+            city: '釜山'
+        },
+        {
+            country: "カンボジア",
+            city: 'プノンペン'
+        },
+        {
+            country: "北朝鮮",
+            city: '平壌'
+        },
+        {
+            country: "台湾",
+            city: '台北'
+        },
+        {
+            country: "中国",
+            city: '北京'
+        },
+        {
+            country: "中国",
+            city: '香港'
+        },
+        {
+            country: "中国",
+            city: '上海'
+        },
+        {
+            country: "中国",
+            city: '大連'
+        },
+        {
+            country: "パキスタン",
+            city: 'カラチ'
+        },
+        {
+            country: "バングラデシュ",
+            city: 'ダッカ'
+        },
+        {
+            country: "フィリピン",
+            city: 'マニラ'
+        },
+        {
+            country: "ベトナム",
+            city: 'ハノイ'
+        },
+        {
+            country: "ベトナム",
+            city: 'ホーチミン'
+        },
+        {
+            country: "マレーシア",
+            city: 'クアラルンプール'
+        },
+        {
+            country: "ミャンマー",
+            city: 'ヤンゴン'
+        },
+        {
+            country: "モンゴル",
+            city: 'ウランバートル'
+        },
+        {
+            country: "アフガニスタン",
+            city: 'カブール'
+        },
+        {
+            country: "アラブ首長国連邦",
+            city: 'ドバイ'
+        },
+        {
+            country: "イスラエル",
+            city: 'エルサレム'
+        },
+        {
+            country: "イラク",
+            city: 'バグダッド'
+        },
+        {
+            country: "イラン",
+            city: 'テヘラン'
+        },
+        {
+            country: "クウェート",
+            city: 'クウェート'
+        },
+        {
+            country: "サウジアラビア",
+            city: 'メッカ'
+        },
+        {
+            country: "シリア",
+            city: 'ダマスカス'
+        },
+        {
+            country: "トルコ",
+            city: 'イスタンブール'
+        },
+        {
+            country: "ヨルダン",
+            city: 'アンマン'
+        },
+        {
+            country: "アンゴラ",
+            city: 'ルアンダ'
+        },
+        {
+            country: "エジプト",
+            city: 'アレキサンドリア'
+        },
+        {
+            country: "エジプト",
+            city: 'カイロ'
+        },
+        {
+            country: "エチオピア",
+            city: 'アディスアベバ'
+        },
+        {
+            country: "ケニア",
+            city: 'ビザウ'
+        },
+        {
+            country: "ケニア",
+            city: 'ナイロビ'
+        },
+        {
+            country: "コートジボワール",
+            city: 'アビジャン'
+        },
+        {
+            country: "コンゴ共和国",
+            city: 'ブラザビル'
+        },
+        {
+            country: "コンゴ民主共和国",
+            city: 'ブラザビル'
+        },
+        {
+            country: "ジブチ",
+            city: 'ジブチ'
+        },
+        {
+            country: "セネガル",
+            city: 'ダカール'
+        },
+        {
+            country: "チュニジア",
+            city: 'チュニス'
+        },
+        {
+            country: "チャド",
+            city: 'ンジャメナ'
+        },
+        {
+            country: "南アフリカ",
+            city: 'ケープタウン'
+        },
+        {
+            country: "モロッコ",
+            city: 'カサブランカ'
+        },
+        {
+            country: "リビア",
+            city: 'トリポリ'
+        },
+        {
+            country: "アイルランド",
+            city: 'ダブリン'
+        },
+        {
+            country: "イタリア",
+            city: 'ミラノ'
+        },
+        {
+            country: "イタリア",
+            city: 'ローマ'
+        },
+        {
+            country: "ウクライナ",
+            city: 'キエフ'
+        },
+        {
+            country: "ウズベキスタン",
+            city: 'タシケント'
+        },
+        {
+            country: "イギリス",
+            city: 'ロンドン'
+        },
+        {
+            country: "イギリス",
+            city: 'プリマス'
+        },
+        {
+            country: "オーストリア",
+            city: 'ウィーン'
+        },
+        {
+            country: "オランダ",
+            city: 'アムステルダム'
+        },
+        {
+            country: "カザフスタン",
+            city: 'アルマトイ'
+        },
+        {
+            country: "ギリシャ",
+            city: 'アテネ'
+        },
+        {
+            country: "グルジア",
+            city: 'トビリシ'
+        },
+        {
+            country: "スウェーデン",
+            city: 'ストックホルム'
+        },
+        {
+            country: "スペイン",
+            city: 'マドリード'
+        },
+        {
+            country: "スペイン",
+            city: 'バルセロナ'
+        },
+        {
+            country: "タジキスタン",
+            city: 'ドゥシャンベ'
+        },
+        {
+            country: "チェコ",
+            city: 'プラハ'
+        },
+        {
+            country: "デンマーク",
+            city: 'コペンハーゲン'
+        },
+        {
+            country: "ドイツ",
+            city: 'ベルリン'
+        },
+        {
+            country: "ドイツ",
+            city: 'ミュンヘン'
+        },
+        {
+            country: "ハンガリー",
+            city: 'ブダペスト'
+        },
+        {
+            country: "フィンランド",
+            city: 'ヘルシンキ'
+        },
+        {
+            country: "フランス",
+            city: 'パリ'
+        },
+        {
+            country: "フランス",
+            city: 'マルセイユ'
+        },
+        {
+            country: "ブルガリア",
+            city: 'ソフィア'
+        },
+        {
+            country: "ベルギー",
+            city: 'ブリュッセル'
+        },
+        {
+            country: "ポーランド",
+            city: 'ワルシャワ'
+        },
+        {
+            country: "ボスニア・ヘルツェゴビナ",
+            city: 'サラエボ'
+        },
+        {
+            country: "ポルトガル",
+            city: 'リスボン'
+        },
+        {
+            country: "マケドニア",
+            city: 'スコピエ'
+        },
+        {
+            country: "モナコ公国",
+            city: 'モナコ'
+        },
+        {
+            country: "ユーゴスラビア連邦",
+            city: 'ベオグラード'
+        },
+        {
+            country: "ルーマニア",
+            city: 'ブカレスト'
+        },
+        {
+            country: "ロシア連邦",
+            city: 'モスクワ'
+        },
+        {
+            country: "ロシア連邦",
+            city: 'サハリン'
+        },
+        {
+            country: "ロシア連邦",
+            city: 'ハバロフスク'
+        },
+        {
+            country: "ロシア連邦",
+            city: 'ウラジオストク'
+        },
+        {
+            country: "ロシア連邦",
+            city: 'サンプトペテルブルグ'
+        },
+        {
+            country: "ロシア連邦",
+            city: 'クラスノヤルスク'
+        },
+        {
+            country: "カナダ",
+            city: 'オタワ'
+        },
+        {
+            country: "カナダ",
+            city: 'バンクーバー'
+        },
+        {
+            country: "アメリカ",
+            city: 'ワシントンDC'
+        },
+        {
+            country: "アメリカ",
+            city: 'ニューヨーク'
+        },
+        {
+            country: "アメリカ",
+            city: 'ロサンゼルス'
+        },
+        {
+            country: "アメリカ",
+            city: 'シカゴ'
+        },
+        {
+            country: "アメリカ",
+            city: 'サンフランシスコ'
+        },
+        {
+            country: "アメリカ",
+            city: 'デンバー'
+        },
+        {
+            country: "アメリカ",
+            city: 'シアトル'
+        },
+        {
+            country: "アメリカ",
+            city: 'ハワイ'
+        },
+        {
+            country: "アルゼンチン",
+            city: 'ブエノスアイレス'
+        },
+        {
+            country: "ウルグアイ",
+            city: 'モンテビデオ'
+        },
+        {
+            country: "キューバ",
+            city: 'ハバナ'
+        },
+        {
+            country: "グアテマラ",
+            city: 'グアテマラシティ'
+        },
+        {
+            country: "コスタリカ",
+            city: 'サンホセ'
+        },
+        {
+            country: "コロンビア",
+            city: 'サンタフェデボゴタ'
+        },
+        {
+            country: "メキシコ",
+            city: 'メキシコシティ'
+        },
+        {
+            country: "パナマ",
+            city: 'パナマ'
+        },
+        {
+            country: "ブラジル",
+            city: 'サンパウロ'
+        },
+        {
+            country: "ブラジル",
+            city: 'リオデジャネイロ'
+        },
+        {
+            country: "ベネズエラ",
+            city: 'カラカス'
+        },
+        {
+            country: "ペルー",
+            city: 'リマ'
+        },
+        {
+            country: "ボリビア",
+            city: 'ラパス'
+        },
+        {
+            country: "オーストラリア",
+            city: 'シドニー'
+        },
+        {
+            country: "オーストラリア",
+            city: 'メルボルン'
+        },
+        {
+            country: "オーストラリア",
+            city: 'ダーウィン'
+        },
+        {
+            country: "オーストラリア",
+            city: 'パース'
+        },
+        {
+            country: "ニュージーランド",
+            city: 'オークランド'
+        },
+        {
+            country: "ニュージーランド",
+            city: 'クライストチャーチ'
+        },
+        {
+            country: "スイス",
+            city: 'チューリッヒ'
+        },
+        {
+            country: "海外不明",
+            city: '海外不明'
+        },
+    ];
+</script>

@@ -1,0 +1,26 @@
+/*
+ * 商品メニュー
+ */
+.bottom.products {
+  background-color: #d8d3cc;
+}
+.products a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/*** 商品単独 ***/
+.product {
+  position: relative;
+  height: 270px;
+  background-image: url("/resources/images/product-label.png");
+  background-repeat: no-repeat;
+  background-size: 10rem 4rem;
+}
+
+.priced {
+  position: absolute;
+  left: 0.6rem;
+  top: 0.3rem;
+  font-size: 1.5rem;
+}

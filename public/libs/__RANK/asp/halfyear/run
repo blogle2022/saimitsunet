@@ -1,0 +1,181 @@
+<?
+include("dbconn.php");
+include("astro.php");
+$datdir = $aspdir . "/dat";
+
+list($lon, $lat, $tz) = location($where);
+if($lon=="" || $lat=="") {
+	$lon = 139.75;
+	$lat = 35.68;
+}
+
+$today = time();
+$year_t = date("Y", $today);
+$month_t = date("n", $today);
+$day_t = date("j", $today);
+
+
+if($test) {
+	$year = "1973";
+	$month = "9";
+	$day = "2";
+	$hour = "0";
+	$min = "0";
+	$lon = 139.75;
+	$lat = 35.68;
+
+	$year_t = "2006";
+	$month_t = "7";
+	$day_t = "4";
+
+}
+
+
+$horo = new HoroScope($year,$month,$day,$hour,$min,$lon,$lat,$tz);
+$horo->invokeSWE();
+$horo->getAbsDegree();
+$horo->getAbsDegreeBySign();
+
+
+##### �������Ⱦǯʬ���������֤�쵤�˼���
+##### �׻���̵���ʤΤ�DB���顣
+$today = date("Ymd",time());
+$sql = "select Sun,Venus,Mars,Jupiter,datestr FROM planetpos WHERE $today<datestr LIMIT 182";
+$ret = $db->query($sql);
+$n = 0;
+while($row = $ret->fetchrow(DB_FETCHMODE_ASSOC)) {
+	$tran["Jupiter"][$n] = $row["Jupiter"];
+	$tran["Mars"][$n] = $row["Mars"];
+	$tran["Sun"][$n] = $row["Sun"];
+	$tran["Venus"][$n] = $row["Venus"];
+	$tran["datestr"][$n] = $row["datestr"];
+	$n++;
+}
+
+
+$natal["Sun"] = $horo->planets["Sun"]->absPosBySign;
+$natal["Jupiter"] = $horo->planets["Jupiter"]->absPosBySign;
+$natal["Saturn"] = $horo->planets["Saturn"]->absPosBySign;
+$natal["Venus"] = $horo->planets["Venus"]->absPosBySign;
+
+$asps = array(0,60,90,120,180);
+$orbs = array(
+	"Jupiter" => 5,
+	"Mars" => 5,
+	"Venus" => 7,
+	"Sun" => 7);
+
+
+$bplnts = array("Sun","Jupiter","Saturn","Venus");
+$cplnts = array("Jupiter","Mars","Venus","Sun");
+$starts = array(
+    "Sun" => 1,
+    "Jupiter" => 2,
+    "Saturn" => 3,
+    "Venus" => 4);
+$lucky = array("", "", "", "", "");
+
+
+
+##### ʸ������
+foreach ($bplnts as $bplnt) {
+    $basp = $natal["$bplnt"];
+    $mindiff = 180;
+    $idx = $starts["$bplnt"];
+    foreach ($cplnts as $cplnt) {
+        $orb = $orbs["$cplnt"];
+        foreach ($asps as $asp) {
+            for($i=0; $i<181; $i++) {
+                $tasp = $tran["$cplnt"][$i];
+
+                $width = abs($basp - $tasp);
+                $dif = abs($width - $asp);
+
+		### ���������־�������õ��
+                if($dif < $mindiff) {
+                    $mindiff = $dif;
+                    $textidx["$starts[$bplnt]"] = $idx;
+                }
+            }
+            $idx += 4;
+        }
+    }
+}
+$lasps = array(120,60,0);
+$lcplnts = array("Jupiter", "Venus", "Sun");
+
+function num2datestr($num) {
+	$y = substr($num,0,4);
+	$m = substr($num,4,2);
+	$m = ereg_replace("^0","",$m);
+	$d = substr($num,6,2);
+	$d = ereg_replace("^0","",$d);
+	$str = $y . "ǯ" . $m . "��" . $d . "��";
+	return $str;
+}
+
+#### �������ո���
+#### bplnts���줾����Ф���lcplnts��120 or 60 or 0�٤������դ򸡺�
+foreach ($bplnts as $bplnt) {
+    $basp = $natal["$bplnt"];
+    foreach ($lcplnts as $cplnt) {
+	### first matches win �ʤΤǡ��ͤ����ä��鼡��bplnt��
+        if(strcmp($lucky["$starts[$bplnt]"],"")!=0) break;
+
+        $orb = $orbs["$cplnt"];
+        foreach ($lasps as $asp) {
+	    ### first matches win �ʤΤǡ��ͤ����ä���ȴ����
+            if(strcmp($lucky["$starts[$bplnt]"],"")!=0) break;
+
+            for($i=0; $i<181; $i++) {
+                $tasp = $tran["$cplnt"][$i];
+                if(hasAspect($basp,$tasp,$asp,$orb)) {
+                    $lucky["$starts[$bplnt]"] = strval($i);
+                    break;
+                }
+            }
+        }
+    }
+}
+
+    $mod = intval($day) % 16;
+    $fp = fopen("/srv/phplib/msg/ft2006b.txt","r");
+    for($j=0; $j<4; $j++) { ### Sun,Jupiter,Saturn,Venus
+        $firstpos = ( $textidx[$j+1] - 1 ) * 40;
+
+        for($k=0; $k<4; $k++) {
+            $mixpos[$k] = $firstpos + $k * 5;
+            if( ($mod & (2 ^ $k)) > 0 ) $mixpos[$k] += 20;
+            ##echo "$mixpos[$k], ";
+            fseek($fp, ($mixpos[$k] + 1) * 56);
+            $text[$j] .= fread($fp, 56 * 4);
+        }
+        $lucky_idx = $lucky[$j+1];
+        $text[$j] = ereg_replace("\*\*��\*\*��",num2datestr($tran["datestr"][$lucky_idx]),$text[$j]);
+	$text[$j] = ereg_replace("\n","",$text[$j]);
+	$text[$j] = ereg_replace("\n","",$text[$j]);
+	$text[$j] = ereg_replace("��","",$text[$j]);
+	$text[$j] = ereg_replace(" ","",$text[$j]);
+
+
+    }
+    fclose($fp);
+$titles = array(
+	"�����������ۤǤߤ����ܱ�",
+	"�������������Ǥߤ�����",
+	"�������������Ǥߤ�����",
+	"�������ζ����Ǥߤ�������");
+
+for($i=0; $i<4; $i++) {
+	$res++;
+	$content .= "head" . strval($i+1) . "=" . $titles[$i] . "\n";
+	$content .= "text" . strval($i+1) . "=" . $text[$i] . "\n";
+}
+
+
+
+
+
+
+
+?>

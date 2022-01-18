@@ -1,0 +1,150 @@
+{% extends "layout/base.html" %}
+{% block pageTitle %}登録情報変更{% endblock %}
+{% block styles %}
+<link rel="stylesheet" href="/resources/css/uranai.css">
+{% endblock %}
+{% block app %}
+<div class="col">
+  {% embed "components/page-label.html" with {'label': '利用者情報登録'} %}{% endembed %}
+  {% embed "components/content-wrapper.html" with {'id': 'edit'} %}
+  {% block content %}
+  {% if updated != null %}
+  <div class="bg-info p-3 text-white">
+    {% if updated == true %}
+    <p class="mb-0">登録情報を変更しました。</p>
+    {% elseif updated == false %}
+    <p class="mb-0">登録情報の変更に失敗しました。</p>
+    {% endif %}
+  </div>
+  {% endif %}
+  <form action="/user/edit.php" method="POST" class="mt-2 mx-auto">
+    {# 編集用トークン #}
+    <input type="hidden" name="_token" value="{{ _token }}" />
+    {# メールアドレス #}
+    <div class="mb-3">
+      <label for="email" class="form-label">メールアドレス {# <small>（メールアドレスの変更は<a
+            href="{{ urls.change_email }}">こちら</a>）</small> #}</label>
+      <input name="mail" type="email" class="form-control" id="email" placeholder="user@example.test"
+        value="{{ user.mail }}" readonly />
+    </div>
+
+    {# パスワード #}
+    <div class="mb-3">
+      <label for="password" class="form-label">パスワード</label>
+      <input name="pass" type="password" class="form-control" id="password" value="{{ user.pass }}" required />
+    </div>
+
+    {# 氏名 #}
+    <div class="mb-3">
+      <label for="name" class="form-label">氏名</label>
+      <input name="name" type="text" class="form-control" id="name" placeholder="細密太郎" value="{{ user.name }}"
+        required />
+    </div>
+
+    {# ニックネーム #}
+    <div class="mb-3">
+      <label for="nick" class="form-label">ニックネーム</label>
+      <input name="nick" type="text" class="form-control" id="nick" placeholder="サイミツ" value="{{ user.nick }}"
+        required />
+    </div>
+
+    {# 性別 #}
+    <div class="mb-4">
+      <label class="form-label">性別</label>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="sex" value="m" id="sex_male"
+          {{ user.sex == 'm' ? 'checked' : ''}} />
+        <label class="form-check-label" for="sex_male"> 男性 </label>
+      </div>
+
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="sex" value="f" id="sex_female"
+          {{ user.sex == 'f' ? 'checked' : ''}} />
+        <label class="form-check-label" for="sex_female"> 女性 </label>
+      </div>
+    </div>
+
+    {# 婚姻状況 #}
+    <div class="mb-4">
+      <label class="form-label">婚姻状況</label>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="mariage" value="s" id="mariage_s"
+          {{ user.mariage == 's' ? 'checked' : ''}} />
+        <label class="form-check-label" for="mariage_s"> 未婚 </label>
+      </div>
+
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="mariage" value="m" id="mariage_m"
+          {{ user.mariage == 'm' ? 'checked' : ''}} />
+        <label class="form-check-label" for="mariage_m"> 既婚 </label>
+      </div>
+    </div>
+
+    {# 生年月日 #}
+    <div class="mb-3">
+      <label for="birthday" class="form-label">生年月日</label>
+      <input name="born" type="date" class="form-control" id="birthday" value="{{ user.born }}" required />
+    </div>
+
+    {# 出生時刻 #}
+    <div class="mb-4">
+      <label for="birthtime" class="form-label">出生時刻</label>
+      <input name="time" type="time" class="form-control" id="birthtime" value="{{ user.time }}" />
+    </div>
+
+    {# 出生場所 #}
+    <div class="mb-4">
+      <label class="form-label">出生地</label>
+      <select id="select-foreign" class="form-select mb-4" aria-label="国内外" name="foreign" required>
+        <option value="0">国内</option>
+        <option value="1">国外</option>
+      </select>
+    </div>
+
+    <div class="mb-4">
+      <select id="select-area" class="form-select mb-4" aria-label="出生国" name="area" required>
+        <option value="">選んでください</option>
+      </select>
+    </div>
+
+    <div class="mb-4">
+      <select id="select-city" class="form-select mb-4" aria-label="出生都市" name="city" required>
+        <option value="">選んでください</option>
+      </select>
+    </div>
+
+    <div>
+      <button type="submit" class="btn btn-outline-primary">
+        変更する
+      </button>
+    </div>
+  </form>
+</div>
+
+
+{% endblock %}
+{% endembed %}
+{% endblock %}
+
+{% block scripts %}
+{% include "others/prefectures_japan.html" %}
+{% include "others/foreign_countries.html" %}
+{% include "others/set_options.html" %}
+<script>
+  document.addEventListener('DOMContentLoaded', event => {
+    const userData = JSON.parse("{{ userJson|e('js') }}");
+    const foreignSelected = parseInt(userData['is_foreign']);
+    const areaSelected = userData['area'];
+    const citySelected = userData['city'];
+
+    const foreignOptions = document.getElementById('select-foreign').children;
+    for (let option of foreignOptions) {
+      if (foreignSelected === parseInt(option.value)) {
+        option.setAttribute('selected', true);
+      }
+    }
+
+    setAreaOptions(foreignSelected, areaSelected);
+    setCityOptions(foreignSelected, areaSelected, citySelected);
+  });
+</script>{% endblock %}

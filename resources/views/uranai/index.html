@@ -1,0 +1,107 @@
+{% extends "layout/base.html" %}
+{% block pageTitle %}毎日の運勢{% endblock %}
+{% block styles %}
+<link rel="stylesheet" href="/resources/css/index.css">
+{% endblock %}
+
+{% block app %}
+{% for title, u in uranai %}
+<div class="col-12">
+	{% embed "components/content-wrapper.html" with {'id': title} %}
+	{% block content %}
+	<div class="row">
+		<div class="col-sm-6 order-sm-2">
+			<h3 class="text-center text-sm-end text-uppercase mb-3 mb-sm-0"
+				style="color: white; text-shadow: 1px 1px 0 #D8D3CC; font-size: calc(1.5rem + 100vw / 40);">
+				{{ title }}
+			</h3>
+		</div>
+
+		<div class="col-sm-6">
+			<div class="h-100 d-flex align-items-end text-center text-sm-start">
+				<h2 class="fs-2 flex-shrink-0 w-100"><i class="bi bi-calendar-check"></i>
+					{{ u.title }}の運勢</h2>
+			</div>
+		</div>
+	</div>
+	<hr>
+
+	{% for star, message in u.messages %}
+	<div class="row mt-4">
+		<div class="col-6 col-sm-3">
+			<h3 class="fs-3">{{ message.title }}</h3>
+		</div>
+
+		<div class="col-6 col-sm-2">
+			<img src="/{{ attribute(u.ranks, star) }}">
+		</div>
+
+		<div class="col-12 col-sm">
+			<p>{{ message.text }}</p>
+		</div>
+	</div>
+	{% endfor %}
+</div>
+{% endblock content %}
+{% endembed %}
+</div>
+{% endfor %}
+
+<main role="main">
+
+	{{ include("components/bottom-products.html", {"paid": user_status.paid}) }}
+
+	{{ include('components/premium.html', {"uranai": {"price": uranai.price}}) }}
+	{% include "components/features.html" %}
+
+	<!-- 細密占星術とは -->
+	<div id="about" class="about bg-white">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-5">
+					<div class="about__image">
+						<img src="{{ urls.images }}/index/itokawa_1.png" class="w-100">
+					</div>
+				</div>
+
+				<div class="col-sm-7">
+					<div class="about__content content-block">
+						<header>
+							<p class="about__outline-title outline-title">DETAILED<br>ASTROLOGY</p>
+							<h2>細密占星術とは</h2>
+						</header>
+
+						<section>
+							<p>日本における宇宙開発の生みの親」として名高い、故・糸川英夫博士。</p>
+							<p>「細密占星術」は糸川博士自らが取り組んだテーマ「天体と誕生日の関係」をおよそ１０年もの長い歳月を費やし、完璧にデータ化した統計学です。</p>
+							<p>誕生日と生まれた場所を入力すると、その日の惑星の位置を特定し、ホロスコープとして出力が可能です。</p>
+							<p>また、西洋星占いの研究より導きだされた情報をデータベース化し、糸川博士の統計学と掛け合わせ、細密占星術として1977年より運営しております。</p>
+							<p>より詳しい住所から星の位置を特定するため、現在の都道府県のほか、市町村変更に伴う、合併情報、変更前の市区町村も選択肢に入れています。</p>
+						</section>
+
+						<section>
+							<div>
+								<img src="" alt="">
+								<img src="" alt="">
+								<img src="" alt="">
+							</div>
+						</section>
+
+						<section>
+							<div>
+								<a href="https://note.com/saimitsunet/n/n6ce418fc6cd8" target="_blank"
+									class="btn btn-dark w-75 cta__regist border-2 py-3 fw-bold">
+									<span>もっと詳しく</span>
+									<span class="d-block float-end pr-3">
+										<i class="bi bi-arrow-right"></i>
+									</span>
+								</a>
+							</div>
+						</section>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div><!-- /細密占星術とは -->
+</main>
+{% endblock app %}

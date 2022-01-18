@@ -1,0 +1,232 @@
+/*
+theme colors
+main: #FFFF00
+*/
+.container {
+  max-width: 800px;
+}
+body {
+  overflow-x: hidden;
+}
+
+/* ナビゲーション */
+.nav-colored {
+  animation: header-fade 0.5s forwards;
+}
+
+@keyframes header-fade {
+  0% {
+    background-color: transparent;
+  }
+
+  100% {
+    background-color: white;
+  }
+}
+
+/** メインビジュアル **/
+.main-visual {
+  position: relative;
+  top: -75px;
+}
+
+.main-visual__wrapper {
+  position: relative;
+}
+
+.swiper {
+  width: 100vw;
+  height: auto;
+}
+
+.main-visual__image {
+  position: relative;
+  z-index: 0;
+}
+
+.main-visual__description__origin {
+  position: relative;
+  text-align: center;
+  width: 40vw;
+  height: 40vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: -30vw 0 0 0.5rem;
+  z-index: 99;
+}
+
+.main-visual__description__origin p,
+.main-visual__description__origin h2 {
+  margin-bottom: 0;
+}
+
+.main-visual__description__origin h2 {
+  font-size: 1.7rem;
+}
+
+.main-visual__description__origin .text-sub {
+  font-size: 1rem;
+}
+
+.main-visual__cta {
+  margin-top: 5rem;
+}
+
+.main-visual__cta p {
+  margin-bottom: 0;
+}
+
+.cta__regist {
+  border-bottom: black 4px solid !important;
+}
+
+img.premium-pr {
+  position: relative;
+  top: -55px;
+}
+
+.main-visual__cta__button {
+  width: 75%;
+}
+
+/** メインコンテンツ **/
+main > div {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+.content-block {
+  text-align: justify;
+}
+
+/* 細密占星術とは */
+/* horoscope */
+/* voices */
+.voices__image {
+  height: 60vw;
+}
+/* 現在過去未来 */
+.time {
+}
+
+.time__visual-sp {
+  background-image: url("/resources/images/index/presentpastfuture.jpeg");
+  background-size: cover;
+  background-position: 0 center;
+  margin-bottom: 1rem;
+  padding: 100px 0;
+}
+
+/* 無料会員登録 */
+
+/* plans */
+.plans {
+  background-image: url("/resources/images/index/premiummember.jpg");
+  background-size: auto 45%;
+  background-position: center 0;
+  background-color: rgba(0, 0, 0, 1);
+}
+
+.plans__card > div {
+  margin-top: 1.5rem;
+  height: calc(100% - 1.5rem);
+}
+
+/* サブスクリプション */
+.slider__visual {
+  position: relative;
+  height: 240px;
+  background-image: url("/resources/images/features-image-1.jpg");
+  background-size: cover;
+  background-color: rgba(0, 0, 0, 0.5);
+  background-blend-mode: darken;
+}
+
+.slider__visual > * {
+  z-index: 99;
+}
+
+.title__subscription {
+  font-size: 0.5rem;
+}
+
+#company {
+  background-color: white !important;
+}
+
+/** デスクトップ **/
+@media screen and (min-width: 768px) {
+  /** メインビジュアル **/
+  .main-visual__wrapper {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .swiper {
+    width: 100%;
+    height: auto;
+  }
+
+  .main-visual__description__origin {
+    width: 200px;
+    height: 200px;
+    margin: -9rem 1rem 0 auto;
+    font-size: 13pt;
+  }
+
+  .main-visual__cta {
+    margin-top: 3rem;
+  }
+
+  .main-visual__cta__button {
+    width: 50%;
+  }
+
+  /* 細密占星術とは */
+  /* horoscope */
+  /* voices */
+  .voices__image {
+    width: 50vw;
+    height: 100%;
+  }
+  /* 現在過去未来 */
+  .time {
+    background-image: url("/resources/images/index/presentpastfuture.jpeg");
+
+    background-size: 40vw auto;
+    background-position: 0 center;
+  }
+
+  /* 無料会員登録 */
+  /* 有料会員になる */
+  /* plans */
+  .plans {
+    background-size: cover;
+  }
+
+  /* features */
+  .swiper-button-prev.swiper-custom-button {
+    margin-left: 22.5vw;
+  }
+
+  .swiper-button-next.swiper-custom-button {
+    margin-right: 22.5vw;
+  }
+
+  .slider__visual {
+    height: 360px;
+  }
+
+  @keyframes slider-fade {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+
+  /* 運営会社 */
+  /* フッター */
+}

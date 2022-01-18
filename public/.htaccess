@@ -1,0 +1,25 @@
+php_flag display_errors On
+php_flag log_errors On
+php_value error_reporting 6135
+php_value error_log "/home/saimitsucom/debug/debug.log"
+# php_value include_path .:/usr/local/lib/php
+# php_value auto_prepend_file "./libs/common.php"
+# php_value session.bug_compat_42 Off
+# php_value session.bug_compat_warn Off
+# php_value session.gc_maxlifetime 21600
+php_value allow_call_time_pass_reference On
+# Header set Pragma "no-cache"
+# Header set Cache-Control "no-cache"
+# Header set Expires "Thu, 01 Dec 1994 16:00:00 GMT"
+
+<Files ~ "~$">
+    Order allow,deny
+    Deny from all
+    Satisfy All
+</Files>
+<Files ~ "\.bak">
+    Order allow,deny
+    Deny from all
+    Satisfy All
+</Files>
+

@@ -1,0 +1,44 @@
+<!-- 占いメニュー -->
+<div class="menu pt-5 pb-5 bg-white">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2 class="text-center">サブスクリプションメニュー</h2>
+            </div>
+        </div>
+
+
+        {% set services = ['setting', 'chemistry', 'weekly', 'future',] %}
+        <div class="row justify-content-center">
+            {% if paid %}
+            {% for service in services %}
+            <div class="col-md-4">
+                <a href="/uranai/{{ service }}.php">
+                    <img src="{{ urls.images }}/services/{{ service }}.svg" class="w-100">
+                </a>
+            </div>
+            {% endfor %}
+            {% else %}
+            <form action="/payment/checkout.php" method="post">
+                <input type="hidden" name="_token" value="{{ token }}">
+                <button class="card-link d-blockmt-4 mb-4" style="border: none; background-color: transparent;">
+                    <img src="{{ urls.images}}/uranai/freeusermenu.svg" class="w-100 d-none d-md-inline">
+                    <img src="{{ urls.images}}/uranai/freeuser-sp.svg" class="w-100 d-md-none">
+                </button>
+            </form>
+
+            {% endif %}
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="my-5">
+                    <a href="/uranai/horo.php">
+                        <img src="{{ urls.images }}/services/horoscope.svg" class="w-100 d-none d-md-inline">
+                        <img src="{{ urls.images }}/services/horoscope-sp.svg" class="w-100 d-md-none">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!-- /占いメニュー -->

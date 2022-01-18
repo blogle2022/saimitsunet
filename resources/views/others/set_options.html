@@ -1,0 +1,77 @@
+<script>
+    const getAreaList = (foreign) => {
+        const list = foreign ? foreignCountries : prefecturesJp;
+        return list;
+    };
+
+    const createAreaList = (list, foreign) => {
+        const key = foreign ? 'country' : '都道府県';
+        const areas = list.map(element => element[key]);
+        const uniqueAreas = [...new Set(areas)];
+        return uniqueAreas;
+    };
+
+    const createCityList = (area, foreign) => {
+        if (foreign) {
+            const counties = foreignCountries.filter(prefectureObject => prefectureObject['country'] === area);
+            const cities = counties.map(element => element['city']);
+            return cities;
+        } else {
+            const prefectures = prefecturesJp.filter(prefectureObject => prefectureObject['都道府県'] === area);
+            const cities = prefectures.map(element => {
+                return {
+                    "新": element['市区町村'],
+                    "旧": element['旧市区町村']
+                }
+            });
+            return cities;
+        }
+    }
+
+    const listToOptions = (list, targetId, selected = '') => {
+        let element = "";
+        for (let item of list) {
+            let selectedAttr = '';
+            if (selected === item) {
+                selectedAttr = ' selected';
+            }
+            if ('object' === typeof item) {
+                selectedAttr = selected === item['旧'] ? ' selected' : '';
+                element += `<option value="${item['旧']}"${selectedAttr}>${item['新']}</option>\n`;
+            } else {
+                selectedAttr = selected === item ? ' selected' : '';
+                element += `<option value="${item}"${selectedAttr}>${item}</option>\n`;
+            }
+        }
+        const select = document.getElementById(targetId);
+        const first = select.firstChild;
+        while (select.children.length > 1) {
+            select.removeChild(select.lastChild);
+        }
+        select.insertAdjacentHTML("beforeend", element);
+    };
+
+    const setAreaOptions = (foreign, selected = '') => {
+        const foreignValue = parseInt(typeof foreign === 'object' ? foreign.value : foreign);
+        const areaList = getAreaList(foreignValue);
+        const areas = createAreaList(areaList, foreignValue);
+        listToOptions(areas, 'select-area', selected);
+    }
+
+    const setCityOptions = (foreign, area, selected = '') => {
+        const foreignValue = parseInt(typeof foreign === 'object' ? foreign.value : foreign);
+        const areaValue = typeof area === 'object' ? area.value : area;
+        const cities = createCityList(areaValue, foreignValue);
+        listToOptions(cities, 'select-city', selected);
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const foreign = document.getElementById('select-foreign');
+        const area = document.getElementById('select-area');
+        const city = document.getElementById('select-city');
+
+        foreign.addEventListener('change', setAreaOptions.bind(null, foreign));
+        area.addEventListener('change', setCityOptions.bind(null, foreign, area));
+
+    });
+</script>

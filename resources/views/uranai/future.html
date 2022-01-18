@@ -1,0 +1,58 @@
+{% extends "layout/base.html" %}
+{% block styles %}
+<link rel="stylesheet" href="/resources/css/uranai.css">
+{% endblock %}
+{% block pageTitle %}未来の運勢{% endblock %}
+{% block app %}
+<div class="col">
+    {% embed "components/content-wrapper.html" with {'id': 'future'} %}
+    {% block content %}
+    {% set categories = {
+                '1': '未来予測',
+                '2': '未来への注意',
+                '5': targetYear ~ '年' ~ period ~ 'の運気',
+                '6': targetYear ~ '年' ~ period ~ 'の恋愛運',
+                '7': targetYear ~ '年' ~ period ~ 'のビジネス運',
+                '8': targetYear ~ '年' ~ period ~ 'の総合運',
+            } %}
+    {% embed "components/uranai-pulldown.html" with {'categories': categories} %}{% endembed %}
+
+    <hr class="border border-success">
+    <header>
+        <h2><i class="bi bi-signpost-split"></i> {{ categories[p] }}</h2>
+        <p>{{ desc | raw }}</p>
+    </header>
+
+    {% embed "components/uranai-form-wrapper.html" %}
+    {% block uranai %}
+    <div class="future__form flex-shrink-0 w-auto">
+        <form action="" method="post">
+            <input type="hidden" name="p" value="{{ p }}">
+            <select name="person" class="form-select d-inline-block w-auto">
+                <option value="myself">{{ user.name }}</option>
+                {% for index, partner in partners %}
+                <option value="{{ index }}" {{ index == person ? 'selected' : '' }}>{{ partner.username }}
+                </option>
+                {% endfor %}
+            </select>
+            <span>
+                さんの運勢を <button type="submit" class="btn btn-dark">占う</button>
+            </span>
+        </form>
+    </div>
+    {% endblock uranai %}
+    {% endembed %}
+    <div class="results">
+        <p>
+            {{ text|raw }}
+        </p>
+    </div>
+
+</div>
+{% endblock content %}
+{% endembed %}
+{% endblock app %}
+
+{% block additionalContents %}
+{{ include("components/bottom-products.html", {paid: user_status.paid}) }}
+{% endblock %}

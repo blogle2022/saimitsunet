@@ -1,0 +1,24 @@
+{% extends "layout/base.html" %}
+{% block pageTitle %}新規利用者登録{% endblock %}
+{% block app %}
+<div class="col-sm-8 offset-sm-2">
+    {% embed "components/page-label.html" with {'label': '利用者情報登録'} %}{% endembed %}
+    {% embed "components/content-wrapper.html" with {'id': 'regist'} %}
+    {% block content %}
+    <div class="send-email__content bg-white px-5 py-3 my-5">
+        <form action="{{ urls.reset_password }}" method="POST">
+            <input type="hidden" name="_token" value="{{ _token }}">
+            <div class="mb-3">
+                <label for="email" class="form-label">メールアドレス</label>
+                <input name="email" type="email" class="form-control" id="email" placeholder="name@example.com"
+                    required>
+            </div>
+            <div>
+                <button class="btn btn-outline-primary" type="submit">変更する</button>
+            </div>
+        </form>
+    </div>
+    {% endblock content %}
+    {% endembed %}
+</div>
+{% endblock app %}

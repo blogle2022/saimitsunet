@@ -1,0 +1,59 @@
+{% extends "layout/base.html" %}
+{% block styles %}
+<link rel="stylesheet" href="/resources/css/uranai.css">
+{% endblock %}
+{% block app %}
+{% embed "components/content-wrapper.html" %}
+{% block content %}
+<div class="col">
+    <hr class="border border-danger">
+    <h2><i class="bi bi-signpost-split"></i> ウィークリービジョン</h2>
+    {% if user_status.paid %}
+    {% embed "components/uranai-form-wrapper.html" %}
+    {% block uranai %}
+
+    <div class="contents">
+        <div>
+            <form method="POST" action="/uranai/weekly.php">
+                <input type="hidden" name="p" value="1">
+                <select name="person">
+                    <option value="myself" selected="">{{ user.name }}</option>
+                    {% for partner in partners %}
+                    <option value="{{ partner.seq }}" {{ partner.seq == person ? 'selected' : '' }}>
+                        {{ partner.username }}</option>
+                    {% endfor %}
+                </select> さんを <div id="SubmitButton" class="SubmitButton"
+                    style="display: inline-block; _display: inline;">
+                    <input type="submit" value="占う" class="btn btn-dark">
+                </div>
+            </form>
+        </div>
+    </div>
+
+    {% endblock uranai %}
+    {% endembed %}
+    <p>
+        {{ text|raw }}
+    </p>
+    <section>
+        <hr>
+        <div>
+            <p>ウィークリービジョンは、各惑星の現在と誕生時の角度から占い結果を表示しています。
+                惑星の持つ意味には共通している部分があり、結果が相反する内容の場合がございます。
+                人間には多面的な部分があることを示しておりますので、あらゆる角度からのアドバイスとなります。
+            </p>
+        </div>
+    </section>
+    {% else %}
+    <div>
+        <p>この機能は有償プランに契約中の方のみご利用いただけます。</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock content %}
+{% endembed %}
+{% endblock app %}
+
+{% block additionalContents %}
+{{ include("components/bottom-products.html", {'paid': user_status.paid}) }}
+{% endblock %}
