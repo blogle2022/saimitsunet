@@ -79,10 +79,7 @@ switch ($p) {
             $mod = ($user->b_day + $partner->b_day) % 2;
 
             $fileDir = public_path() . "/libs/aishou";
-            $file = ($thisyear - $user->b_year) > 18 ? "4f_01a" : "4f_01y";
-            if ($user->base_sex === $partner->sex) {
-                $file = "4f_01a_dousei";
-            }
+            $file = "4f_01a_dousei";
 
             $file = array_to_path([$fileDir, $file]);
 
@@ -98,7 +95,7 @@ switch ($p) {
             $mix->setLinesPar(3);
             $mix->setTotalLines(13);
             $mix->setHash($hash);
-            $titles = array("性格", "知性",  $user->base_sex === $partner->sex ? "友情" : "愛情",);
+            $titles = array("性格", "知性",  "友情",);
             $limit = count($idx);
 
             for ($i = 0; $i < $limit; $i++) {
@@ -180,40 +177,20 @@ switch ($p) {
             if ($moon_wek < 0) $moon_wek += 360;
             $asps = array(0, 120, 60, 144, 72, 30, 45, 135, 150, 90, 180);
             $vplnts = array("Moon", "Mercury", "Venus",);
-            if ($user->sex == $partner->sex) {
-                $filename[0] = public_path() . "/libs/weekly_love/a01_dousei.txt";
-                $filename[1] = public_path() . "/libs/weekly_love/a01_dousei.txt";
-                $titles = array(
-                    "Venus" => "友情度",
-                    "Mercury" => "知性度",
-                    "Moon" => "性格度"
-                );
-                $txtidx = array(
-                    "Venus" => 1,
-                    //"Mars" => 17,
-                    "Jupiter" => 17,
-                    "Mercury" => 33,
-                    "Moon" => 49
-                );
-            } else {
-                $filename[0] = public_path() . "/libs/weekly_love/a0" . $mod . ".txt";
-                $filename[1] = public_path() . "/libs/weekly_love/a1" . $mod . ".txt";
-                $titles = array(
-                    "Venus" => "愛情度",
-                    "Mercury" => "知性度",
-                    "Moon" => "性格度"
-                );
-                $txtidx = array(
-                    "Venus" => 1,
-                    # "Mars" => 17,
-                    # "Jupiter" => 33,
-                    "Mercury" => 49,
-                    "Moon" => 65
-                );
-            }
-
-
-
+            $filename[0] = public_path() . "/libs/weekly_love/a01_dousei.txt";
+            $filename[1] = public_path() . "/libs/weekly_love/a01_dousei.txt";
+            $titles = array(
+                "Venus" => "友情度",
+                "Mercury" => "知性度",
+                "Moon" => "性格度"
+            );
+            $txtidx = array(
+                "Venus" => 1,
+                //"Mars" => 17,
+                "Jupiter" => 17,
+                "Mercury" => 33,
+                "Moon" => 49
+            );
 
             foreach ($vplnts as $vpl) {
 
