@@ -85,7 +85,7 @@ function stripLine($buf)
 	$buf = preg_replace("/　/", " ", $buf);
 	$buf = preg_replace("/ +/", "", $buf);
 	$buf = preg_replace("/\n/", "", $buf);
-	$buf = preg_replace("/\n/", "", $buf);
+	$buf = preg_replace("/\r/", "", $buf);
 	$buf = preg_replace("/。/", "。<br>\n", $buf);
 	$buf = preg_replace("/！/", "！<br>\n", $buf);
 	$buf = preg_replace("/？/", "？<br>\n", $buf);
