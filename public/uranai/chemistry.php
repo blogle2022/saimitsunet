@@ -45,12 +45,11 @@ switch ($p) {
             );
             $targetname = $user->partners[$target]->username;
 
-
-
             $horo->invokeSWE();
             $horo->getAbsDegree();
             $horo2->invokeSWE();
             $horo2->getAbsDegree();
+
 
             $Sun0 = $horo->planets["Sun"]->absPosBySign;
             $Sun1 = $horo2->planets["Sun"]->absPosBySign;
@@ -71,19 +70,16 @@ switch ($p) {
             $Mercury1 = $horo2->planets["Mercury"]->absPosBySign;
 
             $idx[0] = calcMatch($Sun0, $Sun1, $Moon0, $Moon1);      ## 性格
-            $idx[1] = 90 + calcMatch($Sun0, $Sun1, $Venus0, $Venus1);       ## 愛情
-            $idx[2] = 120 + calcMatch($Sun0, $Sun1, $Mercury0, $Mercury1);  ## 知性
-            # $idx[4] = 60 + calcMatch($Sun0, $Sun1, $Mars0, $Mars1); ## セックス
+            #$idx[1] = 30 + calcMatch($Sun0, $Sun1, $Jupiter0, $Jupiter1); ##幸せ
+            $idx[2] = 90 + calcMatch($Sun0, $Sun1, $Venus0, $Venus1);       ## 愛情
+            $idx[1] = 120 + calcMatch($Sun0, $Sun1, $Mercury0, $Mercury1);  ## 知性
+            #$idx[4] = 60 + calcMatch($Sun0, $Sun1, $Mars0, $Mars1); ## セックス
             $thisyear = intval(date("Y", time()));
             $thisday = intval(date("j", time()));
             $mod = ($user->b_day + $partner->b_day) % 2;
+            $file = public_path() . "/libs/aishou/4f_01a_dousei";
 
-            $fileDir = public_path() . "/libs/aishou";
-            $file = "4f_01a_dousei";
-
-            $file = array_to_path([$fileDir, $file]);
-
-            $line_len = 50;
+            $line_len = 73;
             $line_cnt = 3;
             $text_cnt = 13;
 
@@ -91,22 +87,22 @@ switch ($p) {
 
 
             $mix = new MixMsg($file);
-            $mix->setLineLen(50);
-            $mix->setLinesPar(3);
-            $mix->setTotalLines(13);
+            $mix->setLineLen($line_len);
+            $mix->setLinesPar($line_cnt);
+            $mix->setTotalLines($text_cnt);
             $mix->setHash($hash);
-            $titles = array("性格", "知性",  "友情",);
-            $limit = count($idx);
-
+            # $titles = array("性格", "知性", "友情", "幸福",   "セックス");
+            $titles = array("性格", "知性", "友情",);
+            $limit = count($titles);
             for ($i = 0; $i < $limit; $i++) {
+                $text .= '<p class="mb-5">';
                 $text .= "<h4>" . $titles[$i] . "</h4>";
                 $text .= $mix->getMessage($idx[$i]);
-                $text .= "<br><br>";
+                $text .= "</p>";
             }
+
+            break;
         }
-
-        break;
-
     case 2:
         $title = "週間";
         $desc = "今週の相性になります";
@@ -259,8 +255,6 @@ $params = [
     'range' => $uranaiRange,
     'today' => $today,
 ];
-
 $_SESSION['token'] = csrf();
 $params['token'] = $_SESSION['token'];
-
 echo $response->view('uranai.aishou', $params);
