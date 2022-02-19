@@ -1,15 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 require_once '../../bootstrap/uranai.php';
 
 use App\Services\Model;
 
 require_once __DIR__ . '/../../bootstrap/uranai.php';
 
-$p = httpValue("p");
-if (!$p) {
-    $p = 1;
-}
+$p = (int) (httpValue("p") ?: 2);
 
 switch ($p) {
     case 1:
@@ -100,9 +99,8 @@ switch ($p) {
                 $text .= $mix->getMessage($idx[$i]);
                 $text .= "</p>";
             }
-
-            break;
         }
+        break;
     case 2:
         $title = "週間";
         $desc = "今週の相性になります";
@@ -235,15 +233,12 @@ switch ($p) {
                 $text .= "<br><br>";
             }
         }
-
         break;
 
     default:
 }
-
 $partnerinfo = new Model('partnerinfo');
 $partners = $partnerinfo->find('mailaddr', '=', $_SESSION['user']['mail']);
-$p = $p ?: 1;
 $params = [
     'title' => $title,
     'desc' => $desc,

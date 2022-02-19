@@ -34,8 +34,7 @@ class MixMsg
 	function getMessage($idx)
 	{
 		if (!$idx) {
-			$txt = "ご入力いただいているデータでの星のめぐり合わせが無い状態にあります(詳細は<a href=about_non.php target=_blank>こちら</a>)";
-			return $txt;
+			return null;
 		}
 		$fp = fopen($this->filename, "r");
 		$txt = "";

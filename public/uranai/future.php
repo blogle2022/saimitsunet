@@ -26,14 +26,14 @@ switch ($p) {
         $pl_idx = $house_matrix[$planet];
         $file = public_path() . "/libs/future/5f_07";
         $mix = new MixMsg($file);
-        $mix->setLineLen(92);
+        $mix->setLineLen(91);
         $mix->setLinesPar(5);
         $mix->setTotalLines(21);
         $mix->setHash($hash);
         $text = $mix->getMessage($pl_idx);
-        $text = space2br($text);
         $title = "未来予測";
         $desc = "あなたの生まれ持った運命になります";
+
         break;
 
     case 2:
@@ -41,13 +41,11 @@ switch ($p) {
         $hash = ($user->b_day + $user->b_hour + $user->b_min) % 16;
         $file = public_path() . "/libs/future/5f_05";
         $mix = new MixMsg($file);
-        $mix->setLineLen(92);
+        $mix->setLineLen(62);
         $mix->setLinesPar(5);
         $mix->setTotalLines(21);
         $mix->setHash($hash);
-        $text = $mix->getMessage($msgid);
-        $text = space2br($text);
-
+        $text = space2br(euc2utf($mix->getMessage($msgid))) ?: "ご入力いただいているデータでの星のめぐり合わせが無い状態にあります(詳細は<a href=about_non.php target=_blank>こちら</a>)";
         $title = "未来への注意";
         $desc = "あなたの生まれ持った運命になります<br>注意点を確認し、回避していきましょう";
         break;

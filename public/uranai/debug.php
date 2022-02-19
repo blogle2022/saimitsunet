@@ -5,5 +5,5 @@ $filename = public_path() . "/libs/aishou/4f_01a_dousei";
 $file = new SplFileObject($filename, 'r');
 while (!$file->eof()) {
     $line = $file->fgets();
-    if (strlen($line) !== 50) dd(euc2utf($line), false);
+    if (strlen($line) !== 73) dd($line, false);
 }
