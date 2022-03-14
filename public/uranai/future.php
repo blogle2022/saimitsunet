@@ -309,7 +309,7 @@ switch ($p) {
                         $begins[] = $begin;
                         $in = True;
                         $dbKeys = ['TP', 'BP', 'ASP'];
-                        $conditions = array_combine($dbKeys, ["Sun", $bpls[$i], "0"]);
+                        $conditions = array_combine($dbKeys, ["Sun", $bpls[$i], "180"]);
                         $results = $planetpos->aspect('ft004', $conditions);
                         $msgs["$begin"] = $results[0];
                         $aspinfo = "Tの太陽と、Bの" . $jp["$bpls[$i]"] . "がオポジション";
@@ -430,7 +430,7 @@ switch ($p) {
                         $begins_a[] = $begin;
                         $in = True;
                         $dbKeys = ['TP', 'BP', 'ASP'];
-                        $conditions = array_combine($dbKeys, [$cpls[$i], "Venus", "0"]);
+                        $conditions = array_combine($dbKeys, [$cpls[$i], "Venus", "120"]);
                         $results = $planetpos->aspect('ft001', $conditions);
                         $msgs_a["$begin"] = $results[0];
                         $aspinfo = "Tの" . $jp["$cpls[$i]"] . "と、Bの金星がトライン";
@@ -460,7 +460,7 @@ switch ($p) {
                         $begins_a[] = $begin;
                         $in = True;
                         $dbKeys = ['TP', 'BP', 'ASP'];
-                        $conditions = array_combine($dbKeys, [$cpls[$i], "Venus", "0"]);
+                        $conditions = array_combine($dbKeys, [$cpls[$i], "Venus", "180"]);
                         $results = $planetpos->aspect('ft001', $conditions);
                         $msgs_a["$begin"] = $results[0];
                         $aspinfo = "Tの" . $jp["$cpls[$i]"] . "と、Bの金星がオポジション";
@@ -521,7 +521,7 @@ switch ($p) {
                         $begins_b[] = $begin;
                         $in = True;
                         $dbKeys = ['TP', 'BP', 'ASP'];
-                        $conditions = array_combine($dbKeys, [$cpls[$i], "Mars", "0"]);
+                        $conditions = array_combine($dbKeys, [$cpls[$i], "Mars", "180"]);
                         $results = $planetpos->aspect('ft001', $conditions);
                         $msgs_b["$begin"] = $results[0];
                         $aspinfo = "Tの" . $jp["$cpls[$i]"] . "と、Bの火星がオポジション";
