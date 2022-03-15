@@ -26,6 +26,10 @@ if ('post' === $request->method()) :
         redirect('/admin');
     endif;
 elseif ('get' === $request->method('get')) : ?>
+    <?php
+    $tranData = file_get_contents(array_to_path([storage_path(), 'system', 'future_total.json']));
+    $tranList = json_decode($tranData, true);
+    ?>
 
     <?php if (!$_SESSION['admin_loggedin']) : ?>
         <form action="" method="POST">
@@ -37,22 +41,42 @@ elseif ('get' === $request->method('get')) : ?>
             </div>
         </form>
     <?php else : ?>
-        <form action="" method="POST">
-            <div>
-                <input type="number" name="year" placeholder="未来占いの結果の年" required>
-            </div>
+        <div style="margin-bottom: 3rem;">
+            <h2>未来占いの範囲設定</h2>
+            <form action="" method="POST">
+                <div>
+                    <input type="number" name="year" placeholder="未来占いの結果の年" required>
+                </div>
 
-            <div>
-                <select name="timing">
-                    <option value="first_half">前半</option>
-                    <option value="second_half">後半</option>
-                </select>
-            </div>
+                <div>
+                    <select name="timing">
+                        <option value="first_half">前半</option>
+                        <option value="second_half">後半</option>
+                    </select>
+                </div>
 
-            <div>
-                <button type="submit">設定する</button>
-            </div>
-        </form>
+                <div>
+                    <button type="submit">設定する</button>
+                </div>
+            </form>
+        </div>
+
+        <div>
+            <h2>未来総合の設定</h2>
+            # TODO 送信先とその後の処理を作成
+            <form action="/admin/tranlist.php" method="POST">
+                <?php foreach ($tranList as $title => $value) : ?>
+                    <div style="margin-bottom: 2rem;">
+                        <label for="sundays" style="display: block"><?php echo $title; ?></label>
+                        <textarea name="<?php echo $title ?>" id="sundays" cols="60" rows="10"><?php echo implode(',', $value); ?></textarea>
+                    </div>
+                <?php endforeach; ?>
+
+                <div>
+                    <button type="submit">送信する</button>
+                </div>
+            </form>
+        </div>
     <?php endif; ?>
 
 <?php endif; ?>
