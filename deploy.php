@@ -30,7 +30,8 @@ host('59.106.19.189')
 
 desc('Deploy your project');
 task('deploy:dev', function () {
-    cd('~/www/saimitsudev');
-    $pwd = run('pwd');
-    writeln($pwd);
+    cd('~/www/saimitsutest');
+    run('git fetch origin develop');
+    run('git reset --hard origin/develop');
+    run('composer install');
 });
