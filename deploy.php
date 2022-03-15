@@ -33,5 +33,5 @@ task('deploy:dev', function () {
     cd('~/www/saimitsutest');
     run('git fetch origin develop');
     run('git reset --hard origin/develop');
-    run('composer install');
+    run('composer install --no-dev');
 });
