@@ -35,3 +35,10 @@ task('deploy:dev', function () {
     run('git reset --hard origin/develop');
     run('composer install --no-dev');
 });
+
+task('deploy:prod', function () {
+    cd('~/www/saimitsuprod');
+    run('git fetch origin main');
+    run('composer install --no-dev');
+    run('git reset --hard origin/main');
+});
