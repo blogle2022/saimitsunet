@@ -1,5 +1,0 @@
-<?
-if(is_object($user) && get_class($user)=='anonuser') {
-	include("loginform");
-}
-?>
