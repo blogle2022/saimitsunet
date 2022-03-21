@@ -4,7 +4,7 @@ require_once __DIR__ . '/../../bootstrap/page.php';
 
 if ('post' === $request->method()) :
 
-    if ($request->post('year')) :
+    if ($request->post('year') !== '') :
         $half = [
             'first_half' => ['from' => '0101', 'to' => '0630', 'period' => '上期'],
             'second_half' => ['from' => '0701', 'to' => '1231', 'period' => '下期'],
@@ -24,14 +24,13 @@ if ('post' === $request->method()) :
         $password = $request->post('password');
         $_SESSION['admin_loggedin'] = password_verify($password, $hash);
         redirect('/admin');
+    else :
+        redirect('/admin');
     endif;
-elseif ('get' === $request->method('get')) : ?>
-    <?php
+elseif ('get' === $request->method('get')) :
     $tranData = file_get_contents(array_to_path([storage_path(), 'system', 'future_total.json']));
     $tranList = json_decode($tranData, true);
-    ?>
-
-    <?php if (!$_SESSION['admin_loggedin']) : ?>
+    if (!$_SESSION['admin_loggedin']) : ?>
         <form action="" method="POST">
             <label>
                 PASSWORD: <input type="password" name="password">
