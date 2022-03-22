@@ -3,8 +3,7 @@
 require_once __DIR__ . '/../../bootstrap/page.php';
 
 if ('post' === $request->method()) :
-
-    if ($request->post('year') !== '') :
+    if ($request->post('year') !== null) :
         $half = [
             'first_half' => ['from' => '0101', 'to' => '0630', 'period' => '上期'],
             'second_half' => ['from' => '0701', 'to' => '1231', 'period' => '下期'],
