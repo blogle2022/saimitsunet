@@ -31,6 +31,11 @@ host('59.106.19.189')
 desc('Deploy your project');
 task('deploy:dev', function () {
     cd('~/www/saimitsutest');
+    run('composer install --no-dev');
+});
+
+task('deploy:test', function () {
+    cd('~/www/saimitsutest');
     run('git fetch origin develop');
     run('git reset --hard origin/develop');
     run('composer install --no-dev');
@@ -39,6 +44,6 @@ task('deploy:dev', function () {
 task('deploy:prod', function () {
     cd('~/www/saimitsuprod');
     run('git fetch origin main');
-    run('composer install --no-dev');
     run('git reset --hard origin/main');
+    run('composer install --no-dev');
 });
